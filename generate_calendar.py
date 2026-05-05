@@ -157,6 +157,9 @@ def create_calendar(home_mode=False):
     </style>
 </head>
 <body>
+    <div style="max-width: 900px; margin: 0 auto; padding-top: 20px;">
+        <a href="../index.html" class="btn btn-outline-secondary">&larr; Back to Menu</a>
+    </div>
     <h2 class="text-center mb-4">{'Home' if home_mode else 'Away'} Schedule Overlaps</h2>
     {calendars_html}
 </body>

@@ -123,6 +123,32 @@ def create_map(home_mode=False):
     legend._template = Template(legend_html)
     m.get_root().add_child(legend)
 
+    # Add a custom back button
+    back_button_html = '''
+    {% macro html(this, kwargs) %}
+    <div style="
+        position: fixed; 
+        top: 20px; 
+        left: 60px; 
+        z-index: 9999;
+        ">
+        <a href="../index.html" style="
+            background-color: white;
+            color: black;
+            padding: 8px 15px;
+            border: 2px solid grey;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            ">&larr; Back to Menu</a>
+    </div>
+    {% endmacro %}
+    '''
+    back_button = MacroElement()
+    back_button._template = Template(back_button_html)
+    m.get_root().add_child(back_button)
+
     m.save(output_file)
     print(f"Map successfully generated and saved to {output_file}!")
 
