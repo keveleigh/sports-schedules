@@ -1,9 +1,11 @@
-import json
 import argparse
-import dateutil.parser
-from pathlib import Path
-import schedules
+import json
 from collections import defaultdict
+from pathlib import Path
+
+import dateutil.parser
+
+import schedules
 
 
 def create_calendar(home_mode=False):

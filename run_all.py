@@ -1,7 +1,8 @@
 import argparse
-import schedules
-import generate_map
+
 import generate_calendar
+import generate_map
+import schedules
 
 
 def main():

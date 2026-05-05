@@ -1,11 +1,13 @@
-import json
 import argparse
-import urllib.request
-from pathlib import Path
-import dateutil.parser
+import json
 import math
-from timezonefinder import TimezoneFinder
+import urllib.request
+from collections import defaultdict
+from pathlib import Path
+
+import dateutil.parser
 import pytz
+from timezonefinder import TimezoneFinder
 
 
 def calculate_distance(lat1, lon1, lat2, lon2):
@@ -217,9 +219,35 @@ def parse_and_combine_schedules(home_mode=False):
         else:
             game['DateLocal'] = dt_utc.strftime("%B %d, %Y at %I:%M %p UTC")
 
+    # Group games into series
+    game_to_series = {}
+    series_to_games = defaultdict(list)
+    active_series = {}
+    series_counter = 0
+
+    for item in all_schedules:
+        identifier = (item.get('League'), item.get('DateUtc'),
+                      item.get('HomeTeam'), item.get('AwayTeam'))
+        matchup = (item.get('League'), item.get(
+            'HomeTeam'), item.get('AwayTeam'))
+        game_date = dateutil.parser.parse(item['DateUtc'])
+
+        if matchup in active_series:
+            s_id, last_date = active_series[matchup]
+            if (game_date - last_date).days <= 3:
+                active_series[matchup] = (s_id, game_date)
+                game_to_series[identifier] = s_id
+                series_to_games[s_id].append(item)
+                continue
+
+        series_counter += 1
+        active_series[matchup] = (series_counter, game_date)
+        game_to_series[identifier] = series_counter
+        series_to_games[series_counter].append(item)
+
     # Search through all_schedules for games in the same city within a few days of each other
     final_schedules = []
-    added_indices = set()
+    added_identifiers = set()
     for i, current_game in enumerate(all_schedules):
         current_date = dateutil.parser.parse(current_game['DateUtc'])
         current_lat = current_game.get('Lat', 0.0)
@@ -268,12 +296,32 @@ def parse_and_combine_schedules(home_mode=False):
                     'DistanceMiles': round(distance, 2)
                 })
 
-                if i not in added_indices:
-                    final_schedules.append(current_game)
-                    added_indices.add(i)
-                if j not in added_indices:
-                    final_schedules.append(next_game)
-                    added_indices.add(j)
+                c_id = (current_game.get('League'), current_game.get(
+                    'DateUtc'), current_game.get('HomeTeam'), current_game.get('AwayTeam'))
+                n_id = (next_game.get('League'), next_game.get('DateUtc'),
+                        next_game.get('HomeTeam'), next_game.get('AwayTeam'))
+
+                if home_mode:
+                    if c_id not in added_identifiers:
+                        final_schedules.append(current_game)
+                        added_identifiers.add(c_id)
+                    if n_id not in added_identifiers:
+                        final_schedules.append(next_game)
+                        added_identifiers.add(n_id)
+                else:
+                    for s_game in series_to_games[game_to_series[c_id]]:
+                        s_id = (s_game.get('League'), s_game.get('DateUtc'),
+                                s_game.get('HomeTeam'), s_game.get('AwayTeam'))
+                        if s_id not in added_identifiers:
+                            final_schedules.append(s_game)
+                            added_identifiers.add(s_id)
+
+                    for s_game in series_to_games[game_to_series[n_id]]:
+                        s_id = (s_game.get('League'), s_game.get('DateUtc'),
+                                s_game.get('HomeTeam'), s_game.get('AwayTeam'))
+                        if s_id not in added_identifiers:
+                            final_schedules.append(s_game)
+                            added_identifiers.add(s_id)
 
     final_schedules.sort(key=lambda x: dateutil.parser.parse(x['DateUtc']))
 

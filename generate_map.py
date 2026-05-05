@@ -1,10 +1,11 @@
-import json
-import folium
-import dateutil.parser
 import argparse
-from pathlib import Path
+import json
 from collections import defaultdict
-from branca.element import Template, MacroElement
+from pathlib import Path
+
+import dateutil.parser
+import folium
+from branca.element import MacroElement, Template
 
 
 def create_map(home_mode=False):
