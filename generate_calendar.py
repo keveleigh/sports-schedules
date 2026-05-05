@@ -1,6 +1,7 @@
 import argparse
 import json
 from collections import defaultdict
+from datetime import timedelta
 from pathlib import Path
 
 import dateutil.parser
@@ -20,6 +21,9 @@ def create_calendar(home_mode=False):
     output_dir.mkdir(exist_ok=True)
     output_file = output_dir / \
         ('calendar_home.html' if home_mode else 'calendar_away.html')
+        
+    ics_dir = output_dir / 'ics'
+    ics_dir.mkdir(exist_ok=True)
 
     try:
         with open(input_file, 'r') as f:
@@ -124,7 +128,44 @@ def create_calendar(home_mode=False):
         heading_title = "Homestand" if home_mode else "Trip"
         trip_title = f"{heading_title}: {city_str} ({date_str})"
 
-        calendars_html += f"<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>{trip_title}</h3>\n"
+        # Generate .ics file for this trip
+        ics_lines = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Sports Schedules//EN",
+        ]
+        for g_idx, game in enumerate(trip):
+            dt_start = dateutil.parser.parse(game['DateUtc'])
+            dt_end = dt_start + timedelta(hours=3)  # Approximate game duration
+            
+            start_str = dt_start.strftime("%Y%m%dT%H%M%SZ")
+            end_str = dt_end.strftime("%Y%m%dT%H%M%SZ")
+            
+            summary = f"{game['AwayTeam']} @ {game['HomeTeam']}"
+            location = game.get('Location', 'Unknown')
+            uid = f"{start_str}-{g_idx}@sports-schedules"
+            
+            ics_lines.extend([
+                "BEGIN:VEVENT",
+                f"UID:{uid}",
+                f"SUMMARY:{summary}",
+                f"DTSTART:{start_str}",
+                f"DTEND:{end_str}",
+                f"LOCATION:{location}",
+                "END:VEVENT"
+            ])
+        ics_lines.append("END:VCALENDAR")
+        
+        ics_content = "\r\n".join(ics_lines)
+        mode_str = 'home' if home_mode else 'away'
+        ics_filename = f"trip_{mode_str}_{idx}.ics"
+        with open(ics_dir / ics_filename, "w", newline='\r\n', encoding='utf-8') as f:
+            f.write(ics_content)
+
+        calendars_html += f"<div class='d-flex justify-content-center align-items-center mt-5 mb-3'>\n"
+        calendars_html += f"  <h3 class='mb-0' style='color: #495057;'>{trip_title}</h3>\n"
+        calendars_html += f"  <a href='ics/{ics_filename}' class='btn btn-sm btn-outline-primary ms-3' download>Export (.ics)</a>\n"
+        calendars_html += f"</div>\n"
         calendars_html += f"<div id='calendar_{idx}' class='calendar-container'></div>\n"
 
         js_initializations += f"""
