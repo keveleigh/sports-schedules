@@ -1,0 +1,539 @@
+[
+  {
+    "MatchNumber": 125,
+    "RoundNumber": 14,
+    "DateUtc": "2026-07-26 21:00:00Z",
+    "Location": "Snapdragon Stadium",
+    "HomeTeam": "San Diego Wave",
+    "AwayTeam": "Seattle Reign",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "San Diego",
+    "State": "CA",
+    "Lat": 32.784,
+    "Lon": -117.119,
+    "League": "NWSL",
+    "DateLocal": "July 26, 2026 at 02:00 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "San Francisco Giants",
+        "AwayTeam": "San Francisco Giants",
+        "Location": "Petco Park",
+        "DateLocal": "July 30, 2026 at 06:40 PM PDT",
+        "DistanceMiles": 5.74
+      }
+    ]
+  },
+  {
+    "MatchNumber": 1643,
+    "RoundNumber": 19,
+    "DateUtc": "2026-07-31 01:40:00Z",
+    "Location": "Petco Park",
+    "HomeTeam": "San Diego Padres",
+    "AwayTeam": "San Francisco Giants",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "San Diego",
+    "State": "CA",
+    "Lat": 32.707,
+    "Lon": -117.156,
+    "League": "MLB",
+    "DateLocal": "July 30, 2026 at 06:40 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "Snapdragon Stadium",
+        "DateLocal": "July 26, 2026 at 02:00 PM PDT",
+        "DistanceMiles": 5.74
+      }
+    ]
+  },
+  {
+    "MatchNumber": 370,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-13 02:30:00Z",
+    "Location": "Dignity Health Sports Park",
+    "HomeTeam": "LA Galaxy",
+    "AwayTeam": "Seattle Sounders FC",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Carson",
+    "State": "CA",
+    "Lat": 33.864,
+    "Lon": -118.261,
+    "League": "MLS",
+    "DateLocal": "September 12, 2026 at 07:30 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 14, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 15, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 16, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 10.38
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2253,
+    "RoundNumber": 25,
+    "DateUtc": "2026-09-15 01:38:00Z",
+    "Location": "Angel Stadium",
+    "HomeTeam": "Los Angeles Angels",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Anaheim",
+    "State": "CA",
+    "Lat": 33.8,
+    "Lon": -117.882,
+    "League": "MLB",
+    "DateLocal": "September 14, 2026 at 06:38 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "Dignity Health Sports Park",
+        "DateLocal": "September 12, 2026 at 07:30 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 27.35
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2267,
+    "RoundNumber": 25,
+    "DateUtc": "2026-09-16 01:38:00Z",
+    "Location": "Angel Stadium",
+    "HomeTeam": "Los Angeles Angels",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Anaheim",
+    "State": "CA",
+    "Lat": 33.8,
+    "Lon": -117.882,
+    "League": "MLB",
+    "DateLocal": "September 15, 2026 at 06:38 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "Dignity Health Sports Park",
+        "DateLocal": "September 12, 2026 at 07:30 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 27.35
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2282,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-17 01:38:00Z",
+    "Location": "Angel Stadium",
+    "HomeTeam": "Los Angeles Angels",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Anaheim",
+    "State": "CA",
+    "Lat": 33.8,
+    "Lon": -117.882,
+    "League": "MLB",
+    "DateLocal": "September 16, 2026 at 06:38 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "Dignity Health Sports Park",
+        "DateLocal": "September 12, 2026 at 07:30 PM PDT",
+        "DistanceMiles": 22.2
+      },
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 27.35
+      }
+    ]
+  },
+  {
+    "MatchNumber": 192,
+    "RoundNumber": 22,
+    "DateUtc": "2026-09-17 02:00:00Z",
+    "Location": "BMO Stadium",
+    "HomeTeam": "Angel City",
+    "AwayTeam": "Seattle Reign",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Los Angeles",
+    "State": "CA",
+    "Lat": 34.013,
+    "Lon": -118.284,
+    "League": "NWSL",
+    "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "Dignity Health Sports Park",
+        "DateLocal": "September 12, 2026 at 07:30 PM PDT",
+        "DistanceMiles": 10.38
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 14, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 27.35
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 15, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 27.35
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Angel Stadium",
+        "DateLocal": "September 16, 2026 at 06:38 PM PDT",
+        "DistanceMiles": 27.35
+      },
+      {
+        "TargetTeam": "San Francisco Giants",
+        "AwayTeam": "San Francisco Giants",
+        "Location": "Dodger Stadium",
+        "DateLocal": "September 18, 2026 at 07:10 PM PDT",
+        "DistanceMiles": 4.85
+      },
+      {
+        "TargetTeam": "San Francisco Giants",
+        "AwayTeam": "San Francisco Giants",
+        "Location": "Dodger Stadium",
+        "DateLocal": "September 19, 2026 at 06:10 PM PDT",
+        "DistanceMiles": 4.85
+      },
+      {
+        "TargetTeam": "San Francisco Giants",
+        "AwayTeam": "San Francisco Giants",
+        "Location": "Dodger Stadium",
+        "DateLocal": "September 20, 2026 at 01:10 PM PDT",
+        "DistanceMiles": 4.85
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2303,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-19 00:10:00Z",
+    "Location": "Coors Field",
+    "HomeTeam": "Colorado Rockies",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Denver",
+    "State": "CO",
+    "Lat": 39.755,
+    "Lon": -104.994,
+    "League": "MLB",
+    "DateLocal": "September 18, 2026 at 06:10 PM MDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "Centennial Stadium",
+        "DateLocal": "September 19, 2026 at 06:45 PM MDT",
+        "DistanceMiles": 14.84
+      },
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "DICK'S Sporting Goods Park",
+        "DateLocal": "September 19, 2026 at 07:30 PM MDT",
+        "DistanceMiles": 6.47
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2308,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-19 02:10:00Z",
+    "Location": "Dodger Stadium",
+    "HomeTeam": "Los Angeles Dodgers",
+    "AwayTeam": "San Francisco Giants",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Los Angeles",
+    "State": "CA",
+    "Lat": 34.073,
+    "Lon": -118.24,
+    "League": "MLB",
+    "DateLocal": "September 18, 2026 at 07:10 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 4.85
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2319,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-20 00:10:00Z",
+    "Location": "Coors Field",
+    "HomeTeam": "Colorado Rockies",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Denver",
+    "State": "CO",
+    "Lat": 39.755,
+    "Lon": -104.994,
+    "League": "MLB",
+    "DateLocal": "September 19, 2026 at 06:10 PM MDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "Centennial Stadium",
+        "DateLocal": "September 19, 2026 at 06:45 PM MDT",
+        "DistanceMiles": 14.84
+      },
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "DICK'S Sporting Goods Park",
+        "DateLocal": "September 19, 2026 at 07:30 PM MDT",
+        "DistanceMiles": 6.47
+      }
+    ]
+  },
+  {
+    "MatchNumber": 196,
+    "RoundNumber": 22,
+    "DateUtc": "2026-09-20 00:45:00Z",
+    "Location": "Centennial Stadium",
+    "HomeTeam": "Denver Summit",
+    "AwayTeam": "Seattle Reign",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Centennial",
+    "State": "CO",
+    "Lat": 39.583,
+    "Lon": -104.827,
+    "League": "NWSL",
+    "DateLocal": "September 19, 2026 at 06:45 PM MDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 18, 2026 at 06:10 PM MDT",
+        "DistanceMiles": 14.84
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 19, 2026 at 06:10 PM MDT",
+        "DistanceMiles": 14.84
+      },
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "DICK'S Sporting Goods Park",
+        "DateLocal": "September 19, 2026 at 07:30 PM MDT",
+        "DistanceMiles": 15.71
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 20, 2026 at 01:10 PM MDT",
+        "DistanceMiles": 14.84
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2322,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-20 01:10:00Z",
+    "Location": "Dodger Stadium",
+    "HomeTeam": "Los Angeles Dodgers",
+    "AwayTeam": "San Francisco Giants",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Los Angeles",
+    "State": "CA",
+    "Lat": 34.073,
+    "Lon": -118.24,
+    "League": "MLB",
+    "DateLocal": "September 19, 2026 at 06:10 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 4.85
+      }
+    ]
+  },
+  {
+    "MatchNumber": 382,
+    "RoundNumber": 27,
+    "DateUtc": "2026-09-20 01:30:00Z",
+    "Location": "DICK'S Sporting Goods Park",
+    "HomeTeam": "Colorado Rapids",
+    "AwayTeam": "Seattle Sounders FC",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Commerce City",
+    "State": "CO",
+    "Lat": 39.805,
+    "Lon": -104.891,
+    "League": "MLS",
+    "DateLocal": "September 19, 2026 at 07:30 PM MDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 18, 2026 at 06:10 PM MDT",
+        "DistanceMiles": 6.47
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 19, 2026 at 06:10 PM MDT",
+        "DistanceMiles": 6.47
+      },
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "Centennial Stadium",
+        "DateLocal": "September 19, 2026 at 06:45 PM MDT",
+        "DistanceMiles": 15.71
+      },
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Seattle Mariners",
+        "Location": "Coors Field",
+        "DateLocal": "September 20, 2026 at 01:10 PM MDT",
+        "DistanceMiles": 6.47
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2334,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-20 19:10:00Z",
+    "Location": "Coors Field",
+    "HomeTeam": "Colorado Rockies",
+    "AwayTeam": "Seattle Mariners",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Denver",
+    "State": "CO",
+    "Lat": 39.755,
+    "Lon": -104.994,
+    "League": "MLB",
+    "DateLocal": "September 20, 2026 at 01:10 PM MDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "Centennial Stadium",
+        "DateLocal": "September 19, 2026 at 06:45 PM MDT",
+        "DistanceMiles": 14.84
+      },
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Seattle Sounders FC",
+        "Location": "DICK'S Sporting Goods Park",
+        "DateLocal": "September 19, 2026 at 07:30 PM MDT",
+        "DistanceMiles": 6.47
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2336,
+    "RoundNumber": 26,
+    "DateUtc": "2026-09-20 20:10:00Z",
+    "Location": "Dodger Stadium",
+    "HomeTeam": "Los Angeles Dodgers",
+    "AwayTeam": "San Francisco Giants",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Los Angeles",
+    "State": "CA",
+    "Lat": 34.073,
+    "Lon": -118.24,
+    "League": "MLB",
+    "DateLocal": "September 20, 2026 at 01:10 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Reign",
+        "AwayTeam": "Seattle Reign",
+        "Location": "BMO Stadium",
+        "DateLocal": "September 16, 2026 at 07:00 PM PDT",
+        "DistanceMiles": 4.85
+      }
+    ]
+  }
+]

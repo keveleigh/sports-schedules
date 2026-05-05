@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'listYear',
+          events: [{"title": "Seattle Reign @ San Diego Wave", "start": "2026-07-26T21:00:00+00:00", "color": "darkblue", "extendedProps": {"location": "Snapdragon Stadium", "league": "NWSL"}}, {"title": "San Francisco Giants @ San Diego Padres", "start": "2026-07-31T01:40:00+00:00", "color": "orange", "extendedProps": {"location": "Petco Park", "league": "MLB"}}, {"title": "Seattle Sounders FC @ LA Galaxy", "start": "2026-09-13T02:30:00+00:00", "color": "green", "extendedProps": {"location": "Dignity Health Sports Park", "league": "MLS"}}, {"title": "Seattle Mariners @ Los Angeles Angels", "start": "2026-09-15T01:38:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Angel Stadium", "league": "MLB"}}, {"title": "Seattle Mariners @ Los Angeles Angels", "start": "2026-09-16T01:38:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Angel Stadium", "league": "MLB"}}, {"title": "Seattle Mariners @ Los Angeles Angels", "start": "2026-09-17T01:38:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Angel Stadium", "league": "MLB"}}, {"title": "Seattle Reign @ Angel City", "start": "2026-09-17T02:00:00+00:00", "color": "darkblue", "extendedProps": {"location": "BMO Stadium", "league": "NWSL"}}, {"title": "Seattle Mariners @ Colorado Rockies", "start": "2026-09-19T00:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Coors Field", "league": "MLB"}}, {"title": "San Francisco Giants @ Los Angeles Dodgers", "start": "2026-09-19T02:10:00+00:00", "color": "orange", "extendedProps": {"location": "Dodger Stadium", "league": "MLB"}}, {"title": "Seattle Mariners @ Colorado Rockies", "start": "2026-09-20T00:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Coors Field", "league": "MLB"}}, {"title": "Seattle Reign @ Denver Summit", "start": "2026-09-20T00:45:00+00:00", "color": "darkblue", "extendedProps": {"location": "Centennial Stadium", "league": "NWSL"}}, {"title": "San Francisco Giants @ Los Angeles Dodgers", "start": "2026-09-20T01:10:00+00:00", "color": "orange", "extendedProps": {"location": "Dodger Stadium", "league": "MLB"}}, {"title": "Seattle Sounders FC @ Colorado Rapids", "start": "2026-09-20T01:30:00+00:00", "color": "green", "extendedProps": {"location": "DICK'S Sporting Goods Park", "league": "MLS"}}, {"title": "Seattle Mariners @ Colorado Rockies", "start": "2026-09-20T19:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "Coors Field", "league": "MLB"}}, {"title": "San Francisco Giants @ Los Angeles Dodgers", "start": "2026-09-20T20:10:00+00:00", "color": "orange", "extendedProps": {"location": "Dodger Stadium", "league": "MLB"}}],
+          eventContent: function(arg) {
+            let html = '<b>' + arg.event.title + '</b><br>';
+            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
+            return { html: html };
+          }
+        });
+        calendar.render();
+      });
+    </script>
+    <style>
+      body { margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }
+      #calendar { max-width: 900px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+      .fc-list-event-title { white-space: normal !important; }
+    </style>
+</head>
+<body>
+    <h2 class="text-center mb-4">Away Schedule Overlaps</h2>
+    <div id='calendar'></div>
+</body>
+</html>

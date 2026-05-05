@@ -1,0 +1,128 @@
+import json
+import folium
+import dateutil.parser
+import argparse
+from collections import defaultdict
+from branca.element import Template, MacroElement
+
+
+def create_map(home_mode=False):
+    input_file = 'final_schedules_home.json' if home_mode else 'final_schedules_away.json'
+    output_file = 'map_home.html' if home_mode else 'map_away.html'
+
+    try:
+        with open(input_file, 'r') as f:
+            games = json.load(f)
+    except FileNotFoundError:
+        print(f"No games found at {input_file} to map!")
+        return
+
+    if not games:
+        print("No games to map!")
+        return
+
+    # Create a base map centered roughly on the US
+    m = folium.Map(location=[39.8283, -98.5795], zoom_start=4)
+
+    # Define custom styles for each team
+    team_styles = {
+        "San Francisco Giants": {"color": "orange", "icon": "baseball", "prefix": "fa"},
+        "Seattle Mariners": {"color": "cadetblue", "icon": "anchor", "prefix": "fa"},
+        "Seattle Sounders FC": {"color": "green", "icon": "futbol", "prefix": "fa"},
+        "Seattle Reign": {"color": "darkblue", "icon": "crown", "prefix": "fa"}
+    }
+
+    # Group games by their exact coordinates
+    grouped_games = defaultdict(list)
+    for game in games:
+        grouped_games[(game['Lat'], game['Lon'])].append(game)
+
+    for (lat, lon), location_games in grouped_games.items():
+        popup_html = ""
+
+        for i, game in enumerate(location_games):
+            # Get the pre-calculated local date string
+            date_str = game.get('DateLocal')
+            if not date_str:
+                date_str = dateutil.parser.parse(
+                    game['DateUtc']).strftime("%B %d, %Y at %I:%M %p UTC")
+
+            # Build the HTML popup content
+            popup_html += f"<b>{game['AwayTeam']} @ {game['HomeTeam']}</b><br>"
+            popup_html += f"<i>{game['League']} - {game['Location']}</i><br>"
+            popup_html += f"{date_str}"
+
+            if game.get('NearbyGames'):
+                popup_html += "<br><b>Nearby Games:</b><ul>"
+                for nearby in game['NearbyGames']:
+                    nearby_date = nearby.get('DateLocal', 'Unknown Time')
+                    display_team = nearby.get(
+                        'TargetTeam', nearby.get('AwayTeam'))
+                    popup_html += f"<li>{display_team} ({nearby['DistanceMiles']} mi) - {nearby_date}</li>"
+                popup_html += "</ul>"
+
+            # Add a separator line between multiple games at the same location
+            if i < len(location_games) - 1:
+                popup_html += "<hr>"
+
+        # Add a single marker for this location to the map
+        team = location_games[0].get('AwayTeam')
+        if team not in team_styles and location_games[0].get('HomeTeam') in team_styles:
+            team = location_games[0].get('HomeTeam')
+
+        style = team_styles.get(
+            team, {"color": "gray", "icon": "info-sign", "prefix": "glyphicon"})
+
+        folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup(popup_html, max_width=300),
+            icon=folium.Icon(
+                color=style["color"],
+                icon=style["icon"],
+                prefix=style["prefix"]
+            )
+        ).add_to(m)
+
+    # Automatically adjust map zoom and center to fit all markers
+    if grouped_games:
+        lats, lons = zip(*grouped_games.keys())
+        m.fit_bounds([[min(lats), min(lons)], [max(lats), max(lons)]])
+
+    # Add a custom legend
+    legend_html = '''
+    {% macro html(this, kwargs) %}
+    <div style="
+        position: fixed; 
+        bottom: 50px; 
+        left: 50px; 
+        width: 140px; 
+        height: 125px; 
+        background-color: white; 
+        border: 2px solid grey; 
+        z-index: 9999; 
+        font-size: 14px;
+        padding: 10px;
+        ">
+        <b>Team Legend</b><br>
+        <span style="color: orange;">&#9608;</span> SF Giants<br>
+        <span style="color: cadetblue;">&#9608;</span> Mariners<br>
+        <span style="color: green;">&#9608;</span> Sounders<br>
+        <span style="color: darkblue;">&#9608;</span> Reign
+    </div>
+    {% endmacro %}
+    '''
+    legend = MacroElement()
+    legend._template = Template(legend_html)
+    m.get_root().add_child(legend)
+
+    m.save(output_file)
+    print(f"Map successfully generated and saved to {output_file}!")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Generate map visualization.")
+    parser.add_argument('--home', action='store_true',
+                        help="Use home games data.")
+    args = parser.parse_args()
+
+    create_map(home_mode=args.home)

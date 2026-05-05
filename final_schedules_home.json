@@ -1,0 +1,262 @@
+[
+  {
+    "MatchNumber": 306,
+    "RoundNumber": 4,
+    "DateUtc": "2026-04-18 23:15:00Z",
+    "Location": "T-Mobile Park",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "Texas Rangers",
+    "Group": null,
+    "HomeTeamScore": 7,
+    "AwayTeamScore": 3,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.591,
+    "Lon": -122.332,
+    "League": "MLB",
+    "DateLocal": "April 18, 2026 at 04:15 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "St. Louis CITY SC",
+        "Location": "Lumen Field",
+        "DateLocal": "April 18, 2026 at 06:30 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 119,
+    "RoundNumber": 8,
+    "DateUtc": "2026-04-19 01:30:00Z",
+    "Location": "Lumen Field",
+    "HomeTeam": "Seattle Sounders FC",
+    "AwayTeam": "St. Louis CITY SC",
+    "Group": null,
+    "HomeTeamScore": 4,
+    "AwayTeamScore": 1,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.595,
+    "Lon": -122.331,
+    "League": "MLS",
+    "DateLocal": "April 18, 2026 at 06:30 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Texas Rangers",
+        "Location": "T-Mobile Park",
+        "DateLocal": "April 18, 2026 at 04:15 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 680,
+    "RoundNumber": 8,
+    "DateUtc": "2026-05-16 23:15:00Z",
+    "Location": "T-Mobile Park",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "San Diego Padres",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.591,
+    "Lon": -122.332,
+    "League": "MLB",
+    "DateLocal": "May 16, 2026 at 04:15 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "LA Galaxy",
+        "Location": "Lumen Field",
+        "DateLocal": "May 16, 2026 at 06:00 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 204,
+    "RoundNumber": 14,
+    "DateUtc": "2026-05-17 01:00:00Z",
+    "Location": "Lumen Field",
+    "HomeTeam": "Seattle Sounders FC",
+    "AwayTeam": "LA Galaxy",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.595,
+    "Lon": -122.331,
+    "League": "MLS",
+    "DateLocal": "May 16, 2026 at 06:00 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "San Diego Padres",
+        "Location": "T-Mobile Park",
+        "DateLocal": "May 16, 2026 at 04:15 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 345,
+    "RoundNumber": 24,
+    "DateUtc": "2026-09-06 00:30:00Z",
+    "Location": "Lumen Field",
+    "HomeTeam": "Seattle Sounders FC",
+    "AwayTeam": "Red Bull New York",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.595,
+    "Lon": -122.331,
+    "League": "MLS",
+    "DateLocal": "September 05, 2026 at 05:30 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Athletics",
+        "Location": "T-Mobile Park",
+        "DateLocal": "September 05, 2026 at 06:40 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2138,
+    "RoundNumber": 24,
+    "DateUtc": "2026-09-06 01:40:00Z",
+    "Location": "T-Mobile Park",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "Athletics",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.591,
+    "Lon": -122.332,
+    "League": "MLB",
+    "DateLocal": "September 05, 2026 at 06:40 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Red Bull New York",
+        "Location": "Lumen Field",
+        "DateLocal": "September 05, 2026 at 05:30 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 105,
+    "RoundNumber": 27,
+    "DateUtc": "2026-09-24 01:30:00Z",
+    "Location": "Lumen Field",
+    "HomeTeam": "Seattle Sounders FC",
+    "AwayTeam": "Real Salt Lake",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.595,
+    "Lon": -122.331,
+    "League": "MLS",
+    "DateLocal": "September 23, 2026 at 06:30 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Houston Astros",
+        "Location": "T-Mobile Park",
+        "DateLocal": "September 23, 2026 at 07:10 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2371,
+    "RoundNumber": 27,
+    "DateUtc": "2026-09-24 02:10:00Z",
+    "Location": "T-Mobile Park",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "Houston Astros",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.591,
+    "Lon": -122.332,
+    "League": "MLB",
+    "DateLocal": "September 23, 2026 at 07:10 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Real Salt Lake",
+        "Location": "Lumen Field",
+        "DateLocal": "September 23, 2026 at 06:30 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 405,
+    "RoundNumber": 28,
+    "DateUtc": "2026-09-27 00:30:00Z",
+    "Location": "Lumen Field",
+    "HomeTeam": "Seattle Sounders FC",
+    "AwayTeam": "Minnesota United FC",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.595,
+    "Lon": -122.331,
+    "League": "MLS",
+    "DateLocal": "September 26, 2026 at 05:30 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Mariners",
+        "AwayTeam": "Los Angeles Angels",
+        "Location": "T-Mobile Park",
+        "DateLocal": "September 26, 2026 at 06:40 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  },
+  {
+    "MatchNumber": 2413,
+    "RoundNumber": 27,
+    "DateUtc": "2026-09-27 01:40:00Z",
+    "Location": "T-Mobile Park",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "Los Angeles Angels",
+    "Group": null,
+    "HomeTeamScore": null,
+    "AwayTeamScore": null,
+    "City": "Seattle",
+    "State": "WA",
+    "Lat": 47.591,
+    "Lon": -122.332,
+    "League": "MLB",
+    "DateLocal": "September 26, 2026 at 06:40 PM PDT",
+    "NearbyGames": [
+      {
+        "TargetTeam": "Seattle Sounders FC",
+        "AwayTeam": "Minnesota United FC",
+        "Location": "Lumen Field",
+        "DateLocal": "September 26, 2026 at 05:30 PM PDT",
+        "DistanceMiles": 0.28
+      }
+    ]
+  }
+]
