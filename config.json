@@ -1,55 +1,482 @@
 {
     "urls": {
-        "seattle-reign.json": "https://fixturedownload.com/feed/json/nwsl-2026/seattle-reign",
-        "san-francisco-giants.json": "https://fixturedownload.com/feed/json/mlb-2026/san-francisco-giants",
-        "seattle-mariners.json": "https://fixturedownload.com/feed/json/mlb-2026/seattle-mariners",
-        "seattle-sounders-fc.json": "https://fixturedownload.com/feed/json/mls-2026/seattle-sounders-fc",
-        "atlanta-united.json": "https://fixturedownload.com/feed/json/mls-2026/atlanta-united"
+        "nwsl.json": "https://fixturedownload.com/feed/json/nwsl-2026",
+        "mlb.json": "https://fixturedownload.com/feed/json/mlb-2026",
+        "mls.json": "https://fixturedownload.com/feed/json/mls-2026"
     },
-    "home_teams": [
-        "Seattle Mariners",
-        "Seattle Sounders FC"
-    ],
-    "away_teams": [
-        "San Francisco Giants",
-        "Seattle Mariners",
-        "Seattle Sounders FC",
-        "Atlanta United",
-        "Seattle Reign"
-    ],
     "team_styles": {
         "San Francisco Giants": {
             "color": "orange",
             "icon": "baseball",
-            "prefix": "fa"
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/137.svg"
         },
         "Seattle Mariners": {
             "color": "cadetblue",
             "icon": "anchor",
-            "prefix": "fa"
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-primary-on-light/136.svg"
         },
         "Seattle Sounders FC": {
             "color": "green",
             "icon": "futbol",
-            "prefix": "fa"
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1748265125/assets/logos/mls-clubs/Club_Logo-Seattle_e6jk2x.png"
         },
         "Seattle Reign": {
             "color": "darkblue",
             "icon": "crown",
-            "prefix": "fa"
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436107/prd/assets/teams/seattle-reign.svg"
         },
         "Atlanta United": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1775849066/assets/mnp/Club_Logo-Atlanta_ugeyc3_hw47tg.png"
+        },
+        "Austin FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747499975/assets/logos/mls-clubs/Club_Logo-Austin_pa9xtu.png"
+        },
+        "Charlotte FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500045/assets/logos/mls-clubs/Club_Logo-Charlotte_p7sznf.png"
+        },
+        "Chicago Fire FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500178/assets/logos/mls-clubs/Club_Logo-Chicago_jm2yev.png"
+        },
+        "FC Cincinnati": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500249/assets/logos/mls-clubs/Club_Logo-Cincinnati_jwgkps.png"
+        },
+        "Colorado Rapids": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500322/assets/logos/mls-clubs/Club_Logo-Colorado_n5kpss.png"
+        },
+        "Columbus Crew": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500414/assets/logos/mls-clubs/Club_Logo-Columbus_light_z3eq8l.png"
+        },
+        "D.C. United": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500504/assets/logos/mls-clubs/Club_Logo-D.C_t03ekm.png"
+        },
+        "FC Dallas": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500567/assets/logos/mls-clubs/Club_Logo-Dallas_sysmtj.png"
+        },
+        "Houston Dynamo FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747500939/assets/logos/mls-clubs/Club_Logo-Houston_oifm77.png"
+        },
+        "Sporting Kansas City": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747754918/assets/logos/mls-clubs/Club_Logo-Kansas_City_cnhd75.png"
+        },
+        "LA Galaxy": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747755165/assets/logos/mls-clubs/Club_Logo-LA_Galaxy_fg0wjp.png"
+        },
+        "Los Angeles Football Club": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/assets/logos/LAFC.svg"
+        },
+        "Inter Miami CF": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747755405/assets/logos/mls-clubs/Club_Logo-Miami_tyqe64.png"
+        },
+        "Minnesota United FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747754826/assets/logos/mls-clubs/Club_Logo-Minnesota_ftweor.png"
+        },
+        "Nashville SC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747755999/assets/logos/mls-clubs/Club_Logo-Nashville_rb9vwu.png"
+        },
+        "New England Revolution": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1766020750/assets/NE_Logo_PRI_FC_RGB_480x480_fdx2us.png"
+        },
+        "Red Bull New York": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/v1771377726/assets/rbny/logos/RBNY_crest_480x480_ddvzxy.png"
+        },
+        "New York City Football Club": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/v1747756306/assets/logos/mls-clubs/Club_Logo-New_York_City_xu6vax.png"
+        },
+        "Orlando City": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747769281/assets/logos/mls-clubs/Club_Logo-Orlando_ryyn7a.png"
+        },
+        "Philadelphia Union": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747769446/assets/logos/mls-clubs/Club_Logo-Philadelphia_im7pqg.png"
+        },
+        "Portland Timbers": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747769540/assets/logos/mls-clubs/Club_Logo-Portland_qihpaz.png"
+        },
+        "Real Salt Lake": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747776403/assets/logos/mls-clubs/Club_Logo-Salt_Lake_City_hpvde5.png"
+        },
+        "San Diego FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1748261519/assets/logos/mls-clubs/Club_Logo-San_Diego_nwpyul.png"
+        },
+        "San Jose Earthquakes": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1748262048/assets/logos/mls-clubs/Club_Logo-San_Jose_opzlmo.png"
+        },
+        "St. Louis CITY SC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1747771858/assets/logos/mls-clubs/Club_Logo-Saint_Louis_guz12c.png"
+        },
+        "Toronto FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1748265251/assets/logos/mls-clubs/Club_Logo-Toronto_vz6hao.png"
+        },
+        "Vancouver Whitecaps FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa",
+            "logo": "https://images.mlssoccer.com/image/upload/t_club_logo_medium/v1748265547/assets/logos/mls-clubs/Club_Logo-Vancouver_ao9phl.png"
+        },
+        "Angel City": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436088/prd/assets/teams/angel-city-fc.svg"
+        },
+        "Bay": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436090/prd/assets/teams/bay-fc.svg"
+        },
+        "Boston Legacy": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://www.nwslsoccer.com/_next/image?url=https%3A%2F%2Fimages.nwslsoccer.com%2Fimage%2Fprivate%2Ft_q-best%2Fv1749431607%2Fprd%2Fassets%2Fteams%2Fbos-nation-fc.png&amp;w=128&amp;q=75"
+        },
+        "Chicago Stars": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://www.nwslsoccer.com/_next/image?url=https%3A%2F%2Fimages.nwslsoccer.com%2Fimage%2Fprivate%2Ft_q-best%2Fv1776368471%2Fprd%2Fassets%2Fteams%2Fchicago-stars.png&amp;w=128&amp;q=75"
+        },
+        "Denver Summit": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://www.nwslsoccer.com/_next/image?url=https%3A%2F%2Fimages.nwslsoccer.com%2Fimage%2Fprivate%2Ft_q-best%2Fv1757004382%2Fprd%2Fassets%2Fteams%2Fdenver-summit-fc.png&amp;w=128&amp;q=75"
+        },
+        "Houston Dash": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436093/prd/assets/teams/houston-dash.svg"
+        },
+        "Kansas City Current": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436094/prd/assets/teams/kansas-city-current.svg"
+        },
+        "Gotham FC": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://www.nwslsoccer.com/_next/image?url=https%3A%2F%2Fimages.nwslsoccer.com%2Fimage%2Fprivate%2Ft_q-best%2Fv1768567024%2Fprd%2Fassets%2Fteams%2Fnj-ny-gotham-fc.png&amp;w=128&amp;q=75"
+        },
+        "North Carolina Courage": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1712866345/prd/assets/teams/north-carolina-courage.svg"
+        },
+        "Orlando Pride": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436099/prd/assets/teams/orlando-pride.svg"
+        },
+        "Portland Thorns": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436101/prd/assets/teams/portland-thorns-fc.svg"
+        },
+        "Racing Louisville": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436103/prd/assets/teams/racing-louisville-fc.svg"
+        },
+        "San Diego Wave": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436105/prd/assets/teams/san-diego-wave-fc.svg"
+        },
+        "Utah Royals": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1710436109/prd/assets/teams/utah-royals-fc.svg"
+        },
+        "Washington Spirit": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa",
+            "logo": "https://images.nwslsoccer.com/image/private/t_q-best/v1712866158/prd/assets/teams/washington-spirit.svg"
+        },
+        "Baltimore Orioles": {
             "color": "red",
-            "icon": "fire",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/110.svg"
+        },
+        "Boston Red Sox": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/111.svg"
+        },
+        "New York Yankees": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/147.svg"
+        },
+        "Tampa Bay Rays": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/139.svg"
+        },
+        "Toronto Blue Jays": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/141.svg"
+        },
+        "Chicago White Sox": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/145.svg"
+        },
+        "Cleveland Guardians": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/114.svg"
+        },
+        "Detroit Tigers": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/116.svg"
+        },
+        "Kansas City Royals": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/118.svg"
+        },
+        "Minnesota Twins": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/142.svg"
+        },
+        "Athletics": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/133.svg"
+        },
+        "Houston Astros": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-primary-on-light/117.svg"
+        },
+        "Los Angeles Angels": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/108.svg"
+        },
+        "Texas Rangers": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/140.svg"
+        },
+        "Atlanta Braves": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/144.svg"
+        },
+        "Miami Marlins": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/146.svg"
+        },
+        "New York Mets": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/121.svg"
+        },
+        "Philadelphia Phillies": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/143.svg"
+        },
+        "Washington Nationals": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/120.svg"
+        },
+        "Chicago Cubs": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/112.svg"
+        },
+        "Cincinnati Reds": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/113.svg"
+        },
+        "Milwaukee Brewers": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/158.svg"
+        },
+        "Pittsburgh Pirates": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/134.svg"
+        },
+        "St. Louis Cardinals": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/138.svg"
+        },
+        "Arizona Diamondbacks": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/109.svg"
+        },
+        "Colorado Rockies": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/115.svg"
+        },
+        "Los Angeles Dodgers": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/119.svg"
+        },
+        "San Diego Padres": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa",
+            "logo": "https://www.mlbstatic.com/team-logos/team-cap-on-light/135.svg"
+        }
+    },
+    "league_styles": {
+        "MLB": {
+            "color": "red",
+            "icon": "baseball",
+            "prefix": "fa"
+        },
+        "MLS": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa"
+        },
+        "NWSL": {
+            "color": "darkblue",
+            "icon": "crown",
             "prefix": "fa"
         }
     },
     "file_leagues": {
-        "seattle-reign.json": "NWSL",
-        "san-francisco-giants.json": "MLB",
-        "seattle-mariners.json": "MLB",
-        "seattle-sounders-fc.json": "MLS",
-        "atlanta-united.json": "MLS"
+        "nwsl.json": "NWSL",
+        "mlb.json": "MLB",
+        "mls.json": "MLS"
     },
     "stadiums": {
         "Allianz Field": [
@@ -76,7 +503,7 @@
         "Angel Stadium": [
             "Anaheim",
             "CA",
-            33.800,
+            33.8,
             -117.882,
             "America/Los_Angeles"
         ],
@@ -173,7 +600,7 @@
         ],
         "CPKC Stadium": [
             "Kansas City",
-            "KS",
+            "MO",
             39.117,
             -94.573,
             "America/Chicago"
@@ -184,6 +611,13 @@
             29.757,
             -95.355,
             "America/Chicago"
+        ],
+        "Dick's Sporting Goods Park": [
+            "Commerce City",
+            "CO",
+            39.805,
+            -104.891,
+            "America/Denver"
         ],
         "DICK'S Sporting Goods Park": [
             "Commerce City",
@@ -203,15 +637,29 @@
             "Los Angeles",
             "CA",
             34.073,
-            -118.240,
+            -118.24,
             "America/Los_Angeles"
         ],
         "Energizer Park": [
             "St. Louis",
             "MO",
             38.631,
-            -90.210,
+            -90.21,
             "America/Chicago"
+        ],
+        "Empower Field at Mile High": [
+            "Denver",
+            "CO",
+            39.743,
+            -105.02,
+            "America/Denver"
+        ],
+        "Estadio Alfredo Harp Helu": [
+            "Mexico City",
+            "MX",
+            19.405,
+            -99.092,
+            "America/Mexico_City"
         ],
         "Fenway Park": [
             "Boston",
@@ -219,6 +667,13 @@
             42.346,
             -71.097,
             "America/New_York"
+        ],
+        "Field of Dreams": [
+            "Dyersville",
+            "IA",
+            42.497,
+            -91.1,
+            "America/Chicago"
         ],
         "First Horizon Stadium at WakeMed Soccer Park": [
             "Cary",
@@ -230,14 +685,14 @@
         "GEODIS Park": [
             "Nashville",
             "TN",
-            36.130,
+            36.13,
             -86.767,
             "America/Chicago"
         ],
         "Gillette Stadium": [
             "Foxborough",
             "MA",
-            42.090,
+            42.09,
             -71.264,
             "America/New_York"
         ],
@@ -269,11 +724,18 @@
             -81.389,
             "America/New_York"
         ],
+        "Journey Bank Ballpark": [
+            "Williamsport",
+            "PA",
+            41.242,
+            -77.039,
+            "America/New_York"
+        ],
         "Kauffman Stadium": [
             "Kansas City",
             "MO",
             39.051,
-            -94.480,
+            -94.48,
             "America/Chicago"
         ],
         "loanDepot park": [
@@ -282,6 +744,27 @@
             25.778,
             -80.219,
             "America/New_York"
+        ],
+        "Las Vegas Ballpark": [
+            "Summerlin",
+            "NV",
+            36.155,
+            -115.33,
+            "America/Los_Angeles"
+        ],
+        "Levi's Stadium": [
+            "Santa Clara",
+            "CA",
+            37.403,
+            -121.97,
+            "America/Los_Angeles"
+        ],
+        "Los Angeles Memorial Coliseum": [
+            "Los Angeles",
+            "CA",
+            34.014,
+            -118.287,
+            "America/Los_Angeles"
         ],
         "Lumen Field": [
             "Seattle",
@@ -297,11 +780,18 @@
             -85.733,
             "America/New_York"
         ],
+        "M&T Bank Stadium": [
+            "Baltimore",
+            "MD",
+            39.278,
+            -76.622,
+            "America/New_York"
+        ],
         "Mercedes-Benz Stadium": [
             "Atlanta",
             "GA",
             33.755,
-            -84.400,
+            -84.4,
             "America/New_York"
         ],
         "Nationals Park": [
@@ -317,6 +807,13 @@
             42.065,
             -87.674,
             "America/Chicago"
+        ],
+        "One Spokane Stadium": [
+            "Spokane",
+            "WA",
+            47.665,
+            -117.42,
+            "America/Los_Angeles"
         ],
         "Nu Stadium": [
             "Miami",
@@ -384,7 +881,7 @@
         "Rate Field": [
             "Chicago",
             "IL",
-            41.830,
+            41.83,
             -87.633,
             "America/Chicago"
         ],
@@ -392,7 +889,7 @@
             "Harrison",
             "NJ",
             40.736,
-            -74.150,
+            -74.15,
             "America/New_York"
         ],
         "Rogers Centre": [
@@ -432,7 +929,7 @@
         ],
         "Sporting Park": [
             "Kansas City",
-            "MO",
+            "KS",
             39.121,
             -94.823,
             "America/Chicago"
@@ -440,9 +937,16 @@
         "Sports Illustrated Stadium": [
             "Harrison",
             "NJ",
-            40.094,
-            -73.900,
+            40.736,
+            -74.15,
             "America/New_York"
+        ],
+        "Stanford Stadium": [
+            "Stanford",
+            "CA",
+            37.434,
+            -122.161,
+            "America/Los_Angeles"
         ],
         "Stade Saputo": [
             "Montreal",
@@ -461,7 +965,7 @@
         "Sutter Health Park": [
             "Sacramento",
             "CA",
-            38.580,
+            38.58,
             -121.505,
             "America/Los_Angeles"
         ],
@@ -503,7 +1007,7 @@
         "Truist Park": [
             "Atlanta",
             "GA",
-            33.890,
+            33.89,
             -84.467,
             "America/New_York"
         ],

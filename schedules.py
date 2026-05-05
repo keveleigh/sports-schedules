@@ -12,6 +12,7 @@ import pytz
 with open('config.json', 'r') as f:
     config = json.load(f)
 
+
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate distance in miles between two coordinates using the Haversine formula."""
     if lat1 == 0.0 and lon1 == 0.0:
@@ -32,6 +33,10 @@ def update_local_jsons():
     """Fetch the latest schedules from URLs and update the local JSON files."""
     data_dir = Path('data')
     data_dir.mkdir(exist_ok=True)
+
+    # Clean up old team-specific files
+    for old_file in data_dir.glob('*.json'):
+        old_file.unlink()
 
     urls = config.get("urls", {})
     for filename, url in urls.items():
@@ -60,10 +65,6 @@ def parse_and_combine_schedules(home_mode=False):
 
     stadiums = config.get("stadiums", {})
     file_leagues = config.get("file_leagues", {})
-    if home_mode:
-        included_teams = set(config.get("home_teams", []))
-    else:
-        included_teams = set(config.get("away_teams", []))
 
     missing_stadiums = set()
 
@@ -77,19 +78,18 @@ def parse_and_combine_schedules(home_mode=False):
                     data = [data]
 
                 for item in data:
-                    team_key = 'HomeTeam' if home_mode else 'AwayTeam'
-                    if item.get(team_key) in included_teams:
-                        league = file_leagues.get(json_file.name, 'Unknown')
-                        location = item.get('Location')
-                        if location not in stadiums and location is not None:
-                            missing_stadiums.add(f"{location} ({league})")
+                    league = file_leagues.get(json_file.name, 'Unknown')
+                    location = item.get('Location')
+                    if location not in stadiums and location is not None:
+                        missing_stadiums.add(f"{location} ({league})")
 
-                        stadium_info = stadiums.get(location, ["Unknown", "Unknown", 0.0, 0.0, None])
-                        city, state, lat, lon = stadium_info[0], stadium_info[1], stadium_info[2], stadium_info[3]
-                        tz_str = stadium_info[4] if len(stadium_info) > 4 else None
+                    stadium_info = stadiums.get(
+                        location, ["Unknown", "Unknown", 0.0, 0.0, None])
+                    city, state, lat, lon = stadium_info[0], stadium_info[1], stadium_info[2], stadium_info[3]
+                    tz_str = stadium_info[4] if len(stadium_info) > 4 else None
 
-                        all_schedules.append(
-                            {**item, 'City': city, 'State': state, 'Lat': lat, 'Lon': lon, 'League': league, 'Timezone': tz_str})
+                    all_schedules.append(
+                        {**item, 'City': city, 'State': state, 'Lat': lat, 'Lon': lon, 'League': league, 'Timezone': tz_str})
         except json.JSONDecodeError:
             print(f"Error parsing {json_file}")
 
@@ -172,7 +172,8 @@ def parse_and_combine_schedules(home_mode=False):
                 current_lat, current_lon, next_lat, next_lon)
 
             if home_mode:
-                is_overlap = current_local_day == next_local_day
+                is_overlap = (distance <= 50.0 and current_league !=
+                              next_league and current_local_day == next_local_day)
             else:
                 is_overlap = (
                     distance <= 50.0 and current_league != next_league)

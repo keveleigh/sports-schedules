@@ -1,16 +1,11 @@
 import argparse
 import json
-from collections import defaultdict
-from datetime import timedelta
 from pathlib import Path
-
-import dateutil.parser
-
-import schedules
 
 
 with open('config.json', 'r') as f:
     config = json.load(f)
+
 
 def create_calendar(home_mode=False):
     input_dir = Path('output')
@@ -21,9 +16,6 @@ def create_calendar(home_mode=False):
     output_dir.mkdir(exist_ok=True)
     output_file = output_dir / \
         ('calendar_home.html' if home_mode else 'calendar_away.html')
-        
-    ics_dir = output_dir / 'ics'
-    ics_dir.mkdir(exist_ok=True)
 
     try:
         with open(input_file, 'r') as f:
@@ -36,153 +28,276 @@ def create_calendar(home_mode=False):
         print("No games to map!")
         return
 
-    team_colors = {team: style["color"] for team, style in config.get("team_styles", {}).items()}
+    team_colors = {team: style["color"] for team,
+                   style in config.get("team_styles", {}).items()}
+    league_colors = {league: style["color"] for league,
+                     style in config.get("league_styles", {}).items()}
+    team_logos = {team: style.get("logo", "") for team,
+                  style in config.get("team_styles", {}).items()}
 
-    # Build Connected Components to group games into "Trips"
-    n = len(games)
-    parent = list(range(n))
+    unique_teams = set()
+    for game in games:
+        unique_teams.add(game.get('AwayTeam'))
+        unique_teams.add(game.get('HomeTeam'))
 
-    def find(i):
-        if parent[i] == i:
-            return i
-        parent[i] = find(parent[i])
-        return parent[i]
+    default_teams = ["Seattle Mariners", "Seattle Sounders FC"] if home_mode else [
+        "San Francisco Giants", "Seattle Mariners", "Seattle Sounders FC", "Seattle Reign"
+    ]
 
-    def union(i, j):
-        root_i = find(i)
-        root_j = find(j)
-        if root_i != root_j:
-            parent[root_i] = root_j
+    select_options = "".join(
+        [f'<option value="{t}"{" selected" if t in default_teams else ""}>{t}</option>' for t in sorted(list(unique_teams))])
+    dropdown_html = f"""
+    <div class='mb-5' style='max-width: 600px; margin: 0 auto;'>
+        <label for="team-filter" class="form-label fw-bold">Select Teams to Compare:</label>
+        <select id="team-filter" multiple>
+            {select_options}
+        </select>
+        <small class="text-muted d-block mt-2">Select at least two teams to find overlapping trips between them.</small>
+    </div>
+    """
 
-    for i in range(n):
-        dt_i = dateutil.parser.parse(games[i]['DateUtc'])
-        day_i = games[i].get('DateLocal', '').split(' at ')[0]
-        for j in range(i + 1, n):
-            dt_j = dateutil.parser.parse(games[j]['DateUtc'])
-            if (dt_j - dt_i).days > 4:
-                break
+    global_js = f"""
+      const allGames = {json.dumps(games)};
+      const homeMode = {'true' if home_mode else 'false'};
+      const teamColors = {json.dumps(team_colors)};
+      const leagueColors = {json.dumps(league_colors)};
+      const teamLogos = {json.dumps(team_logos)};
 
-            day_j = games[j].get('DateLocal', '').split(' at ')[0]
+      var calendars = [];
 
-            lat1 = games[i].get('Lat', 0.0)
-            lon1 = games[i].get('Lon', 0.0)
-            lat2 = games[j].get('Lat', 0.0)
-            lon2 = games[j].get('Lon', 0.0)
+      function calculateDistance(lat1, lon1, lat2, lon2) {{
+          if (lat1 === 0 && lon1 === 0) return Infinity;
+          if (lat2 === 0 && lon2 === 0) return Infinity;
+          const R = 3958.8;
+          const dLat = (lat2 - lat1) * Math.PI / 180;
+          const dLon = (lon2 - lon1) * Math.PI / 180;
+          const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          return R * c;
+      }}
 
-            dist = schedules.calculate_distance(lat1, lon1, lat2, lon2)
-            if dist <= 50.0:
-                if home_mode:
-                    if day_i == day_j:
-                        union(i, j)
-                else:
-                    union(i, j)
+      function generateICS(trip) {{
+          let lines = [
+              "BEGIN:VCALENDAR",
+              "VERSION:2.0",
+              "PRODID:-//Sports Schedules//EN",
+          ];
+          trip.forEach((game, idx) => {{
+              let dtStart = new Date(game.DateUtc);
+              let dtEnd = new Date(dtStart.getTime() + 3 * 60 * 60 * 1000);
 
-    trips_dict = defaultdict(list)
-    for i in range(n):
-        trips_dict[find(i)].append(games[i])
+              let startStr = dtStart.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+              let endStr = dtEnd.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
-    # Sort trips chronologically by their first game
-    trips = list(trips_dict.values())
-    trips.sort(key=lambda t: dateutil.parser.parse(t[0]['DateUtc']))
+              lines.push(
+                  "BEGIN:VEVENT",
+                  `UID:${{startStr}}-${{idx}}@sports-schedules`,
+                  `SUMMARY:${{game.AwayTeam}} @ ${{game.HomeTeam}}`,
+                  `DTSTART:${{startStr}}`,
+                  `DTEND:${{endStr}}`,
+                  `LOCATION:${{game.Location || 'Unknown'}}`,
+                  "END:VEVENT"
+              );
+          }});
+          lines.push("END:VCALENDAR");
+          return lines.join("\\r\\n");
+      }}
 
-    calendars_html = ""
-    js_initializations = ""
+      function buildTrips(selectedTeams) {{
+          if (selectedTeams.length < 2) return [];
 
-    for idx, trip in enumerate(trips):
-        events = []
-        cities = []
-        for game in trip:
-            dt = dateutil.parser.parse(game['DateUtc'])
+          let activeGames = allGames.filter(g => {{
+              if (homeMode) {{
+                  return selectedTeams.includes(g.HomeTeam);
+              }} else {{
+                  return selectedTeams.includes(g.AwayTeam);
+              }}
+          }});
 
-            team = game.get('AwayTeam')
-            if team not in team_colors and game.get('HomeTeam') in team_colors:
-                team = game.get('HomeTeam')
+          let edges = [];
+          for (let i = 0; i < activeGames.length; i++) {{
+              for (let j = i + 1; j < activeGames.length; j++) {{
+                  let g1 = activeGames[i];
+                  let g2 = activeGames[j];
 
-            events.append({
-                "title": f"{game['AwayTeam']} @ {game['HomeTeam']}",
-                "start": dt.isoformat(),
-                "color": team_colors.get(team, "gray"),
-                "extendedProps": {
-                    "location": game['Location'],
-                    "league": game['League']
-                }
-            })
+                  let d1 = new Date(g1.DateUtc);
+                  let d2 = new Date(g2.DateUtc);
+                  let diffDays = Math.floor(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24));
 
-            city = game.get('City', 'Unknown')
-            if city and city not in cities:
-                cities.append(city)
+                  if (g1.HomeTeam === g2.HomeTeam && g1.AwayTeam === g2.AwayTeam && g1.League === g2.League) {{
+                      if (!homeMode && diffDays <= 3) {{
+                          edges.push({{u: i, v: j, cross: false}});
+                      }}
+                      continue;
+                  }}
 
-        city_str = " & ".join(cities)
-        
-        start_date_str = trip[0].get('DateLocal', '').split(' at ')[0] or trip[0]['DateUtc']
-        start_date = dateutil.parser.parse(start_date_str).strftime("%b %d")
-        
-        end_date_str = trip[-1].get('DateLocal', '').split(' at ')[0] or trip[-1]['DateUtc']
-        end_date = dateutil.parser.parse(end_date_str).strftime("%b %d")
+                  if (g1.League === g2.League) continue;
 
-        if start_date == end_date:
-            date_str = start_date
-        else:
-            date_str = f"{start_date} - {end_date}"
+                  let timeValid = false;
+                  if (homeMode) {{
+                      let localDay1 = g1.DateLocal ? g1.DateLocal.split(' at ')[0] : g1.DateUtc;
+                      let localDay2 = g2.DateLocal ? g2.DateLocal.split(' at ')[0] : g2.DateUtc;
+                      timeValid = (localDay1 === localDay2);
+                  }} else {{
+                      timeValid = (diffDays <= 4);
+                  }}
 
-        heading_title = "Homestand" if home_mode else "Trip"
-        trip_title = f"{heading_title}: {city_str} ({date_str})"
+                  if (!timeValid) continue;
 
-        # Generate .ics file for this trip
-        ics_lines = [
-            "BEGIN:VCALENDAR",
-            "VERSION:2.0",
-            "PRODID:-//Sports Schedules//EN",
-        ]
-        for g_idx, game in enumerate(trip):
-            dt_start = dateutil.parser.parse(game['DateUtc'])
-            dt_end = dt_start + timedelta(hours=3)  # Approximate game duration
-            
-            start_str = dt_start.strftime("%Y%m%dT%H%M%SZ")
-            end_str = dt_end.strftime("%Y%m%dT%H%M%SZ")
-            
-            summary = f"{game['AwayTeam']} @ {game['HomeTeam']}"
-            location = game.get('Location', 'Unknown')
-            uid = f"{start_str}-{g_idx}@sports-schedules"
-            
-            ics_lines.extend([
-                "BEGIN:VEVENT",
-                f"UID:{uid}",
-                f"SUMMARY:{summary}",
-                f"DTSTART:{start_str}",
-                f"DTEND:{end_str}",
-                f"LOCATION:{location}",
-                "END:VEVENT"
-            ])
-        ics_lines.append("END:VCALENDAR")
-        
-        ics_content = "\r\n".join(ics_lines)
-        mode_str = 'home' if home_mode else 'away'
-        ics_filename = f"trip_{mode_str}_{idx}.ics"
-        with open(ics_dir / ics_filename, "w", newline='\r\n', encoding='utf-8') as f:
-            f.write(ics_content)
-
-        calendars_html += f"<div class='d-flex justify-content-center align-items-center mt-5 mb-3'>\n"
-        calendars_html += f"  <h3 class='mb-0' style='color: #495057;'>{trip_title}</h3>\n"
-        calendars_html += f"  <a href='ics/{ics_filename}' class='btn btn-sm btn-outline-primary ms-3' download>Export (.ics)</a>\n"
-        calendars_html += f"</div>\n"
-        calendars_html += f"<div id='calendar_{idx}' class='calendar-container'></div>\n"
-
-        js_initializations += f"""
-        var calendarEl_{idx} = document.getElementById('calendar_{idx}');
-        var calendar_{idx} = new FullCalendar.Calendar(calendarEl_{idx}, {{
-          initialView: 'listYear',
-          height: 'auto',
-          headerToolbar: false,
-          events: {json.dumps(events)},
-          eventContent: function(arg) {{
-            let html = '<b>' + arg.event.title + '</b><br>';
-            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
-            return {{ html: html }};
+                  let dist = calculateDistance(g1.Lat, g1.Lon, g2.Lat, g2.Lon);
+                  if (dist <= 50) {{
+                      edges.push({{u: i, v: j, cross: true}});
+                  }}
+              }}
           }}
+
+          let parent = Array.from({{length: activeGames.length}}, (_, i) => i);
+          function find(i) {{
+              if (parent[i] === i) return i;
+              return parent[i] = find(parent[i]);
+          }}
+          function union(i, j) {{
+              let rootI = find(i);
+              let rootJ = find(j);
+              if (rootI !== rootJ) parent[rootI] = rootJ;
+          }}
+
+          edges.forEach(e => union(e.u, e.v));
+
+          let validRoots = new Set();
+          edges.forEach(e => {{
+              if (e.cross) validRoots.add(find(e.u));
+          }});
+
+          let tripsDict = {{}};
+          for (let i = 0; i < activeGames.length; i++) {{
+              let r = find(i);
+              if (validRoots.has(r)) {{
+                  if (!tripsDict[r]) tripsDict[r] = [];
+                  tripsDict[r].push(activeGames[i]);
+              }}
+          }}
+
+          let trips = Object.values(tripsDict);
+          trips.sort((a, b) => new Date(a[0].DateUtc) - new Date(b[0].DateUtc));
+          return trips;
+      }}
+
+      function renderTrips(selectedTeams) {{
+          calendars.forEach(c => c.destroy());
+          calendars = [];
+
+          let wrapper = document.getElementById('calendars-wrapper');
+          wrapper.innerHTML = '';
+
+          if (selectedTeams.length < 2) {{
+              wrapper.innerHTML = '<p class="text-center text-muted mt-5">Please select at least 2 teams from the dropdown above to find overlapping trips between them.</p>';
+              return;
+          }}
+
+          let trips = buildTrips(selectedTeams);
+
+          if (trips.length === 0) {{
+              wrapper.innerHTML = '<p class="text-center text-muted mt-5">No overlapping trips found between the selected teams.</p>';
+              return;
+          }}
+
+          trips.forEach((trip, idx) => {{
+              let cities = [...new Set(trip.map(g => g.City || 'Unknown'))];
+              let cityStr = cities.join(" & ");
+
+              let startDateStr = (trip[0].DateLocal ? trip[0].DateLocal.split(' at ')[0] : trip[0].DateUtc);
+              let endDateStr = (trip[trip.length-1].DateLocal ? trip[trip.length-1].DateLocal.split(' at ')[0] : trip[trip.length-1].DateUtc);
+
+              let formatOpts = {{ month: 'short', day: 'numeric' }};
+              let startDate = new Date(startDateStr).toLocaleDateString('en-US', formatOpts);
+              let endDate = new Date(endDateStr).toLocaleDateString('en-US', formatOpts);
+
+              let dateStr = (startDate === endDate) ? startDate : `${{startDate}} - ${{endDate}}`;
+
+              let headingTitle = homeMode ? "Homestand" : "Trip";
+              let tripTitle = `${{headingTitle}}: ${{cityStr}} (${{dateStr}})`;
+
+              let icsContent = generateICS(trip);
+              let blob = new Blob([icsContent], {{ type: 'text/calendar;charset=utf-8;' }});
+              let icsUrl = URL.createObjectURL(blob);
+
+              let tripContainer = document.createElement('div');
+              tripContainer.innerHTML = `
+                  <div class='d-flex justify-content-center align-items-center mt-5 mb-3'>
+                    <h3 class='mb-0' style='color: #495057;'>${{tripTitle}}</h3>
+                    <a href='${{icsUrl}}' class='btn btn-sm btn-outline-primary ms-3' download='trip_${{idx}}.ics'>Export (.ics)</a>
+                  </div>
+                  <div id='calendar_${{idx}}' class='calendar-container'></div>
+              `;
+              wrapper.appendChild(tripContainer);
+
+              let events = trip.map(game => {{
+                  let team = homeMode ? game.HomeTeam : game.AwayTeam;
+                  let color = teamColors[team] || leagueColors[game.League] || "gray";
+                  let logo = teamLogos[team] || "";
+
+                  return {{
+                      title: `${{game.AwayTeam}} @ ${{game.HomeTeam}}`,
+                      start: game.DateUtc,
+                      color: color,
+                      extendedProps: {{
+                          location: game.Location,
+                          league: game.League,
+                          logo: logo,
+                          trackedTeam: team
+                      }}
+                  }};
+              }});
+
+              let calendarEl = document.getElementById(`calendar_${{idx}}`);
+              let calendar = new FullCalendar.Calendar(calendarEl, {{
+                  initialView: 'listYear',
+                  height: 'auto',
+                  headerToolbar: false,
+                  events: events,
+                  eventContent: function(arg) {{
+                      let logoHtml = '';
+                      if (arg.event.extendedProps.logo) {{
+                          logoHtml = `<img src="${{arg.event.extendedProps.logo}}" style="width: 35px; height: 35px; object-fit: contain; margin-right: 15px;">`;
+                      }} else {{
+                          let initialAvatar = `https://ui-avatars.com/api/?name=${{encodeURIComponent(arg.event.extendedProps.trackedTeam)}}&background=e9ecef&color=495057&bold=true`;
+                          logoHtml = `<img src="${{initialAvatar}}" style="width: 35px; height: 35px; border-radius: 50%; object-fit: contain; margin-right: 15px;">`;
+                      }}
+                      let html = `<div class="d-flex align-items-center">
+                                    ${{logoHtml}}
+                                    <div>
+                                      <b>${{arg.event.title}}</b><br>
+                                      <i>${{arg.event.extendedProps.league}} - ${{arg.event.extendedProps.location}}</i>
+                                    </div>
+                                  </div>`;
+                      return {{ html: html }};
+                  }}
+              }});
+              calendar.render();
+              calendars.push(calendar);
+          }});
+      }}
+
+      document.addEventListener('DOMContentLoaded', function() {{
+        const filterEl = document.getElementById('team-filter');
+        const choices = new Choices(filterEl, {{
+            removeItemButton: true,
+            placeholderValue: 'Filter by teams...',
+            searchPlaceholderValue: 'Search teams'
         }});
-        calendar_{idx}.render();
-        """
+        
+        filterEl.addEventListener('change', function() {{
+            var activeTeams = Array.from(filterEl.selectedOptions).map(opt => opt.value);
+            renderTrips(activeTeams);
+        }});
+        
+        var initialTeams = Array.from(filterEl.selectedOptions).map(opt => opt.value);
+        renderTrips(initialTeams);
+      }});
+    """
 
     # Create an HTML file using FullCalendar
     html_content = f"""<!DOCTYPE html>
@@ -191,15 +306,14 @@ def create_calendar(home_mode=False):
     <meta charset='utf-8' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {{
-        {js_initializations}
-      }});
-    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>{global_js}</script>
     <style>
       body {{ margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }}
       .calendar-container {{ max-width: 900px; margin: 0 auto 40px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
       .fc-list-event-title {{ white-space: normal !important; }}
+      .fc-list-event-graphic {{ display: none !important; }}
     </style>
 </head>
 <body>
@@ -207,7 +321,8 @@ def create_calendar(home_mode=False):
         <a href="../index.html" class="btn btn-outline-secondary">&larr; Back to Menu</a>
     </div>
     <h2 class="text-center mb-4">{'Home' if home_mode else 'Away'} Schedule Overlaps</h2>
-    {calendars_html}
+    {dropdown_html}
+    <div id="calendars-wrapper"></div>
 </body>
 </html>
 """

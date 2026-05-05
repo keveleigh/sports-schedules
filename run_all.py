@@ -1,8 +1,12 @@
 import argparse
+import importlib
 
 import generate_calendar
 import generate_map
 import schedules
+import update_mlb_logos
+import update_mls_logos
+import update_nwsl_logos
 
 
 def main():
@@ -13,6 +17,16 @@ def main():
     args = parser.parse_args()
 
     if args.update:
+        print("--- Updating Logos ---")
+        update_mlb_logos.scrape_and_update_mlb_logos()
+        update_mls_logos.scrape_and_update_mls_logos()
+        update_nwsl_logos.scrape_and_update_nwsl_logos()
+        
+        # Reload modules so they use the newly updated config.json
+        importlib.reload(schedules)
+        importlib.reload(generate_map)
+        importlib.reload(generate_calendar)
+
         print("--- Updating Schedules ---")
         schedules.update_local_jsons()
 

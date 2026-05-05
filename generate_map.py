@@ -11,6 +11,7 @@ from branca.element import MacroElement, Template
 with open('config.json', 'r') as f:
     config = json.load(f)
 
+
 def create_map(home_mode=False):
     input_dir = Path('output')
     input_file = input_dir / \
@@ -37,6 +38,13 @@ def create_map(home_mode=False):
 
     # Define custom styles for each team
     team_styles = config.get("team_styles", {})
+    league_styles = config.get("league_styles", {})
+
+    # Create a FeatureGroup for each league to allow toggling
+    league_groups = {league: folium.FeatureGroup(
+        name=league, show=True) for league in league_styles.keys()}
+    for group in league_groups.values():
+        group.add_to(m)
 
     # Group games by their exact coordinates
     grouped_games = defaultdict(list)
@@ -75,11 +83,13 @@ def create_map(home_mode=False):
         team = location_games[0].get('AwayTeam')
         if team not in team_styles and location_games[0].get('HomeTeam') in team_styles:
             team = location_games[0].get('HomeTeam')
+        league = location_games[0].get('League', 'Unknown')
 
-        style = team_styles.get(
-            team, {"color": "gray", "icon": "info-sign", "prefix": "glyphicon"})
+        fallback_style = league_styles.get(
+            league, {"color": "gray", "icon": "info-sign", "prefix": "glyphicon"})
+        style = team_styles.get(team, fallback_style)
 
-        folium.Marker(
+        marker = folium.Marker(
             location=[lat, lon],
             popup=folium.Popup(popup_html, max_width=300),
             icon=folium.Icon(
@@ -89,14 +99,26 @@ def create_map(home_mode=False):
             )
         ).add_to(m)
 
+        # Assign the marker to the league's toggle group
+        target_group = league_groups.get(league)
+        if target_group is not None:
+            marker.add_to(target_group)
+        else:
+            marker.add_to(m)
+
     # Automatically adjust map zoom and center to fit all markers
     if grouped_games:
         lats, lons = zip(*grouped_games.keys())
         m.fit_bounds([[min(lats), min(lons)], [max(lats), max(lons)]])
 
+    folium.LayerControl(collapsed=False).add_to(m)
+
     legend_items = ""
     for team, style in team_styles.items():
         legend_items += f'<span style="color: {style["color"]};">&#9608;</span> {team}<br>\n        '
+    legend_items += "<hr style='margin: 5px 0;'>"
+    for league, style in league_styles.items():
+        legend_items += f'<span style="color: {style["color"]};">&#9608;</span> {league} (Other)<br>\n        '
 
     # Add a custom legend
     legend_html = f'''
