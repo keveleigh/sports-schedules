@@ -7,7 +7,7 @@ def scrape_and_update_nwsl_logos():
     print("Scraping nwslsoccer.com for official club logos...")
     url = "https://www.nwslsoccer.com/teams"
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    
+
     try:
         with urllib.request.urlopen(req) as response:
             html = response.read().decode('utf-8')
@@ -16,7 +16,7 @@ def scrape_and_update_nwsl_logos():
         return
 
     scraped_logos = {}
-    
+
     # Translate NWSL website names to the schedule's JSON formatting
     nwsl_teams = {
         "Angel City": "Angel City",
@@ -45,15 +45,18 @@ def scrape_and_update_nwsl_logos():
     }
 
     # Attempt 1: Extract from Next.js __NEXT_DATA__ JSON blob (common on modern sports sites)
-    next_data_match = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.+?)</script>', html)
+    next_data_match = re.search(
+        r'<script id="__NEXT_DATA__" type="application/json">(.+?)</script>', html)
     if next_data_match:
         try:
             next_data = json.loads(next_data_match.group(1))
+
             def extract_logos(d):
                 if isinstance(d, dict):
                     name = d.get('name') or d.get('teamName') or d.get('title')
-                    logo = d.get('logo') or d.get('lightLogo') or d.get('darkLogo') or d.get('logoUrl')
-                    
+                    logo = d.get('logo') or d.get('lightLogo') or d.get(
+                        'darkLogo') or d.get('logoUrl')
+
                     if name and logo and isinstance(name, str):
                         for search_name, official_name in nwsl_teams.items():
                             if search_name.lower() in name.lower() or name.lower() in search_name.lower():
@@ -62,12 +65,12 @@ def scrape_and_update_nwsl_logos():
                                     logo_url = logo
                                 elif isinstance(logo, dict) and 'url' in logo:
                                     logo_url = logo['url']
-                                    
+
                                 if logo_url:
                                     if logo_url.startswith('//'):
                                         logo_url = 'https:' + logo_url
                                     scraped_logos[official_name] = logo_url
-                    
+
                     for k, v in d.items():
                         extract_logos(v)
                 elif isinstance(d, list):
@@ -83,7 +86,7 @@ def scrape_and_update_nwsl_logos():
         for match in re.finditer(pattern, html):
             url = match.group(1) if match.group(1) else match.group(4)
             alt = match.group(2) if match.group(2) else match.group(3)
-                
+
             alt_lower = alt.lower()
             for search_name, official_name in nwsl_teams.items():
                 if search_name.lower() in alt_lower and ("logo" in alt_lower or "crest" in alt_lower or ".png" in url or ".svg" in url):
@@ -124,8 +127,9 @@ def scrape_and_update_nwsl_logos():
 
     with open('config.json', 'w') as f:
         json.dump(config, f, indent=4)
-        
-    print(f"Successfully scraped and added {updates} NWSL team logos into config.json!")
+
+    print(
+        f"Successfully scraped and added {updates} NWSL team logos into config.json!")
 
 
 if __name__ == '__main__':

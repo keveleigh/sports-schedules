@@ -9,8 +9,7 @@ with open('config.json', 'r') as f:
 
 def create_calendar(home_mode=False):
     input_dir = Path('output')
-    input_file = input_dir / \
-        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
+    input_file = input_dir / 'all_schedules.json'
 
     output_dir = Path('html')
     output_dir.mkdir(exist_ok=True)
@@ -65,6 +64,11 @@ def create_calendar(home_mode=False):
 
       var calendars = [];
 
+      allGames.forEach(g => {{
+          g.parsedDate = new Date(g.DateUtc);
+          g.localDay = g.DateLocal ? g.DateLocal.split(' at ')[0] : g.DateUtc;
+      }});
+
       function calculateDistance(lat1, lon1, lat2, lon2) {{
           if (lat1 === 0 && lon1 === 0) return Infinity;
           if (lat2 === 0 && lon2 === 0) return Infinity;
@@ -85,7 +89,7 @@ def create_calendar(home_mode=False):
               "PRODID:-//Sports Schedules//EN",
           ];
           trip.forEach((game, idx) => {{
-              let dtStart = new Date(game.DateUtc);
+              let dtStart = game.parsedDate;
               let dtEnd = new Date(dtStart.getTime() + 3 * 60 * 60 * 1000);
 
               let startStr = dtStart.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
@@ -122,9 +126,7 @@ def create_calendar(home_mode=False):
                   let g1 = activeGames[i];
                   let g2 = activeGames[j];
 
-                  let d1 = new Date(g1.DateUtc);
-                  let d2 = new Date(g2.DateUtc);
-                  let diffDays = Math.floor(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24));
+                  let diffDays = Math.floor(Math.abs(g2.parsedDate - g1.parsedDate) / (1000 * 60 * 60 * 24));
 
                   if (g1.HomeTeam === g2.HomeTeam && g1.AwayTeam === g2.AwayTeam && g1.League === g2.League) {{
                       if (!homeMode && diffDays <= 3) {{
@@ -137,9 +139,7 @@ def create_calendar(home_mode=False):
 
                   let timeValid = false;
                   if (homeMode) {{
-                      let localDay1 = g1.DateLocal ? g1.DateLocal.split(' at ')[0] : g1.DateUtc;
-                      let localDay2 = g2.DateLocal ? g2.DateLocal.split(' at ')[0] : g2.DateUtc;
-                      timeValid = (localDay1 === localDay2);
+                      timeValid = (g1.localDay === g2.localDay);
                   }} else {{
                       timeValid = (diffDays <= 4);
                   }}
@@ -181,7 +181,7 @@ def create_calendar(home_mode=False):
           }}
 
           let trips = Object.values(tripsDict);
-          trips.sort((a, b) => new Date(a[0].DateUtc) - new Date(b[0].DateUtc));
+          trips.sort((a, b) => a[0].parsedDate - b[0].parsedDate);
           return trips;
       }}
 
@@ -208,8 +208,8 @@ def create_calendar(home_mode=False):
               let cities = [...new Set(trip.map(g => g.City || 'Unknown'))];
               let cityStr = cities.join(" & ");
 
-              let startDateStr = (trip[0].DateLocal ? trip[0].DateLocal.split(' at ')[0] : trip[0].DateUtc);
-              let endDateStr = (trip[trip.length-1].DateLocal ? trip[trip.length-1].DateLocal.split(' at ')[0] : trip[trip.length-1].DateUtc);
+              let startDateStr = trip[0].localDay;
+              let endDateStr = trip[trip.length-1].localDay;
 
               let formatOpts = {{ month: 'short', day: 'numeric' }};
               let startDate = new Date(startDateStr).toLocaleDateString('en-US', formatOpts);
@@ -304,13 +304,14 @@ def create_calendar(home_mode=False):
 <html>
 <head>
     <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>{global_js}</script>
     <style>
-      body {{ margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }}
+      body {{ background-color: #f8f9fa; padding: 40px 15px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; }}
       .calendar-container {{ max-width: 900px; margin: 0 auto 40px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
       .fc-list-event-title {{ white-space: normal !important; }}
       .fc-list-event-graphic {{ display: none !important; }}

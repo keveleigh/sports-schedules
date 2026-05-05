@@ -1,8 +1,6 @@
 import argparse
 import json
-import math
 import urllib.request
-from collections import defaultdict
 from pathlib import Path
 
 import dateutil.parser
@@ -11,22 +9,6 @@ import pytz
 
 with open('config.json', 'r') as f:
     config = json.load(f)
-
-
-def calculate_distance(lat1, lon1, lat2, lon2):
-    """Calculate distance in miles between two coordinates using the Haversine formula."""
-    if lat1 == 0.0 and lon1 == 0.0:
-        return float('inf')
-    if lat2 == 0.0 and lon2 == 0.0:
-        return float('inf')
-
-    R = 3958.8  # Radius of earth in miles
-    d_lat = math.radians(lat2 - lat1)
-    d_lon = math.radians(lon2 - lon1)
-    a = math.sin(d_lat/2)**2 + math.cos(math.radians(lat1)) * \
-        math.cos(math.radians(lat2)) * math.sin(d_lon/2)**2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    return R * c
 
 
 def update_local_jsons():
@@ -55,11 +37,10 @@ def update_local_jsons():
             print(f"Failed to update {filename} from {url}: {e}")
 
 
-def parse_and_combine_schedules(home_mode=False):
+def parse_and_combine_schedules():
     # Get all JSON files in the data directory
     data_dir = Path('data')
-    json_files = [f for f in data_dir.glob(
-        '*.json') if 'final_schedules' not in f.name]
+    json_files = list(data_dir.glob('*.json'))
 
     all_schedules = []
 
@@ -121,136 +102,23 @@ def parse_and_combine_schedules(home_mode=False):
         else:
             game['DateLocal'] = dt_utc.strftime("%B %d, %Y at %I:%M %p UTC")
 
-    # Group games into series
-    game_to_series = {}
-    series_to_games = defaultdict(list)
-    active_series = {}
-    series_counter = 0
-
-    for item in all_schedules:
-        identifier = (item.get('League'), item.get('DateUtc'),
-                      item.get('HomeTeam'), item.get('AwayTeam'))
-        matchup = (item.get('League'), item.get(
-            'HomeTeam'), item.get('AwayTeam'))
-        game_date = dateutil.parser.parse(item['DateUtc'])
-
-        if matchup in active_series:
-            s_id, last_date = active_series[matchup]
-            if (game_date - last_date).days <= 3:
-                active_series[matchup] = (s_id, game_date)
-                game_to_series[identifier] = s_id
-                series_to_games[s_id].append(item)
-                continue
-
-        series_counter += 1
-        active_series[matchup] = (series_counter, game_date)
-        game_to_series[identifier] = series_counter
-        series_to_games[series_counter].append(item)
-
-    # Search through all_schedules for games in the same city within a few days of each other
-    final_schedules = []
-    added_identifiers = set()
-    for i, current_game in enumerate(all_schedules):
-        current_date = dateutil.parser.parse(current_game['DateUtc'])
-        current_lat = current_game.get('Lat', 0.0)
-        current_lon = current_game.get('Lon', 0.0)
-        current_league = current_game.get('League', '')
-        current_local_day = current_game.get('DateLocal', '').split(' at ')[0]
-
-        for j in range(i + 1, len(all_schedules)):
-            next_game = all_schedules[j]
-            next_date = dateutil.parser.parse(next_game['DateUtc'])
-            next_lat = next_game.get('Lat', 0.0)
-            next_lon = next_game.get('Lon', 0.0)
-            next_league = next_game.get('League', '')
-            next_local_day = next_game.get('DateLocal', '').split(' at ')[0]
-
-            if (next_date - current_date).days > 4:
-                break
-
-            distance = calculate_distance(
-                current_lat, current_lon, next_lat, next_lon)
-
-            if home_mode:
-                is_overlap = (distance <= 50.0 and current_league !=
-                              next_league and current_local_day == next_local_day)
-            else:
-                is_overlap = (
-                    distance <= 50.0 and current_league != next_league)
-
-            if is_overlap:
-                if 'NearbyGames' not in current_game:
-                    current_game['NearbyGames'] = []
-                if 'NearbyGames' not in next_game:
-                    next_game['NearbyGames'] = []
-
-                current_game['NearbyGames'].append({
-                    'TargetTeam': next_game.get('HomeTeam') if home_mode else next_game.get('AwayTeam'),
-                    'AwayTeam': next_game.get('AwayTeam'),
-                    'Location': next_game.get('Location'),
-                    'DateLocal': next_game.get('DateLocal'),
-                    'DistanceMiles': round(distance, 2)
-                })
-                next_game['NearbyGames'].append({
-                    'TargetTeam': current_game.get('HomeTeam') if home_mode else current_game.get('AwayTeam'),
-                    'AwayTeam': current_game.get('AwayTeam'),
-                    'Location': current_game.get('Location'),
-                    'DateLocal': current_game.get('DateLocal'),
-                    'DistanceMiles': round(distance, 2)
-                })
-
-                c_id = (current_game.get('League'), current_game.get(
-                    'DateUtc'), current_game.get('HomeTeam'), current_game.get('AwayTeam'))
-                n_id = (next_game.get('League'), next_game.get('DateUtc'),
-                        next_game.get('HomeTeam'), next_game.get('AwayTeam'))
-
-                if home_mode:
-                    if c_id not in added_identifiers:
-                        final_schedules.append(current_game)
-                        added_identifiers.add(c_id)
-                    if n_id not in added_identifiers:
-                        final_schedules.append(next_game)
-                        added_identifiers.add(n_id)
-                else:
-                    for s_game in series_to_games[game_to_series[c_id]]:
-                        s_id = (s_game.get('League'), s_game.get('DateUtc'),
-                                s_game.get('HomeTeam'), s_game.get('AwayTeam'))
-                        if s_id not in added_identifiers:
-                            final_schedules.append(s_game)
-                            added_identifiers.add(s_id)
-
-                    for s_game in series_to_games[game_to_series[n_id]]:
-                        s_id = (s_game.get('League'), s_game.get('DateUtc'),
-                                s_game.get('HomeTeam'), s_game.get('AwayTeam'))
-                        if s_id not in added_identifiers:
-                            final_schedules.append(s_game)
-                            added_identifiers.add(s_id)
-
-    final_schedules.sort(key=lambda x: dateutil.parser.parse(x['DateUtc']))
-
-    # Print results
-    print(json.dumps(final_schedules, indent=2))
-    print(len(final_schedules))
-
     # Save results to a file
     output_dir = Path('output')
     output_dir.mkdir(exist_ok=True)
-    output_file = output_dir / \
-        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
+    output_file = output_dir / 'all_schedules.json'
     with open(output_file, 'w') as f:
-        json.dump(final_schedules, f, indent=2)
+        json.dump(all_schedules, f, indent=2)
     print(f"Results successfully saved to {output_file}")
+    print(f"Total Unique Games Parsed: {len(all_schedules)}")
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Process sports schedules.")
     parser.add_argument('--update', action='store_true',
                         help="Fetch latest schedules from URLs and update local JSON files.")
-    parser.add_argument('--home', action='store_true',
-                        help="Find overlapping home games on the same day.")
     args = parser.parse_args()
 
     if args.update:
         update_local_jsons()
 
-    parse_and_combine_schedules(home_mode=args.home)
+    parse_and_combine_schedules()

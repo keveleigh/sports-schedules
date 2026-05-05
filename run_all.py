@@ -21,7 +21,7 @@ def main():
         update_mlb_logos.scrape_and_update_mlb_logos()
         update_mls_logos.scrape_and_update_mls_logos()
         update_nwsl_logos.scrape_and_update_nwsl_logos()
-        
+
         # Reload modules so they use the newly updated config.json
         importlib.reload(schedules)
         importlib.reload(generate_map)
@@ -30,13 +30,14 @@ def main():
         print("--- Updating Schedules ---")
         schedules.update_local_jsons()
 
-    print("\n--- Processing Away Games ---")
-    schedules.parse_and_combine_schedules(home_mode=False)
+    print("\n--- Parsing Schedules ---")
+    schedules.parse_and_combine_schedules()
+
+    print("\n--- Generating Away Dashboards ---")
     generate_map.create_map(home_mode=False)
     generate_calendar.create_calendar(home_mode=False)
 
-    print("\n--- Processing Home Games ---")
-    schedules.parse_and_combine_schedules(home_mode=True)
+    print("\n--- Generating Home Dashboards ---")
     generate_map.create_map(home_mode=True)
     generate_calendar.create_calendar(home_mode=True)
 

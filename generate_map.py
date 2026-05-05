@@ -9,8 +9,7 @@ with open('config.json', 'r') as f:
 
 def create_map(home_mode=False):
     input_dir = Path('output')
-    input_file = input_dir / \
-        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
+    input_file = input_dir / 'all_schedules.json'
 
     output_dir = Path('html')
     output_dir.mkdir(exist_ok=True)
@@ -30,7 +29,8 @@ def create_map(home_mode=False):
 
     team_styles = config.get("team_styles", {})
     league_styles = config.get("league_styles", {})
-    team_logos = {team: style.get("logo", "") for team, style in team_styles.items()}
+    team_logos = {team: style.get("logo", "")
+                  for team, style in team_styles.items()}
 
     unique_teams = set()
     for game in games:
@@ -44,7 +44,7 @@ def create_map(home_mode=False):
     select_options = "".join(
         [f'<option value="{t}"{" selected" if t in default_teams else ""}>{t}</option>' for t in sorted(list(unique_teams))])
     dropdown_html = f"""
-    <div class='mb-4' style='max-width: 600px; margin: 0 auto;'>
+    <div class='mb-5' style='max-width: 600px; margin: 0 auto;'>
         <label for="team-filter" class="form-label fw-bold">Select Teams to Compare:</label>
         <select id="team-filter" multiple>
             {select_options}
@@ -62,6 +62,11 @@ def create_map(home_mode=False):
 
       var map;
       var markersLayer;
+      
+      allGames.forEach(g => {{
+          g.parsedDate = new Date(g.DateUtc);
+          g.localDay = g.DateLocal ? g.DateLocal.split(' at ')[0] : g.DateUtc;
+      }});
 
       function calculateDistance(lat1, lon1, lat2, lon2) {{
           if (lat1 === 0 && lon1 === 0) return Infinity;
@@ -93,9 +98,7 @@ def create_map(home_mode=False):
                   let g1 = activeGames[i];
                   let g2 = activeGames[j];
 
-                  let d1 = new Date(g1.DateUtc);
-                  let d2 = new Date(g2.DateUtc);
-                  let diffDays = Math.floor(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24));
+                  let diffDays = Math.floor(Math.abs(g2.parsedDate - g1.parsedDate) / (1000 * 60 * 60 * 24));
 
                   if (g1.HomeTeam === g2.HomeTeam && g1.AwayTeam === g2.AwayTeam && g1.League === g2.League) {{
                       if (!homeMode && diffDays <= 3) {{
@@ -108,9 +111,7 @@ def create_map(home_mode=False):
 
                   let timeValid = false;
                   if (homeMode) {{
-                      let localDay1 = g1.DateLocal ? g1.DateLocal.split(' at ')[0] : g1.DateUtc;
-                      let localDay2 = g2.DateLocal ? g2.DateLocal.split(' at ')[0] : g2.DateUtc;
-                      timeValid = (localDay1 === localDay2);
+                      timeValid = (g1.localDay === g2.localDay);
                   }} else {{
                       timeValid = (diffDays <= 4);
                   }}
@@ -152,7 +153,7 @@ def create_map(home_mode=False):
           }}
 
           let trips = Object.values(tripsDict);
-          trips.sort((a, b) => new Date(a[0].DateUtc) - new Date(b[0].DateUtc));
+          trips.sort((a, b) => a[0].parsedDate - b[0].parsedDate);
           return trips;
       }}
 
@@ -192,7 +193,7 @@ def create_map(home_mode=False):
           for (let key in locationGroups) {{
               let loc = locationGroups[key];
               
-              loc.games.sort((a, b) => new Date(a.DateUtc) - new Date(b.DateUtc));
+              loc.games.sort((a, b) => a.parsedDate - b.parsedDate);
               let popupHtml = "";
 
               loc.games.forEach((game, i) => {{
@@ -279,10 +280,10 @@ def create_map(home_mode=False):
 <html>
 <head>
     <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -290,7 +291,7 @@ def create_map(home_mode=False):
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>{global_js}</script>
     <style>
-      body {{ margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }}
+      body {{ background-color: #f8f9fa; padding: 40px 15px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; }}
       #map-container {{ max-width: 1000px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
       #map {{ width: 100%; height: 600px; border-radius: 6px; z-index: 1; }}
     </style>
