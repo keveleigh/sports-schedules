@@ -26,6 +26,9 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
 def update_local_jsons():
     """Fetch the latest schedules from URLs and update the local JSON files."""
+    data_dir = Path('data')
+    data_dir.mkdir(exist_ok=True)
+
     urls = {
         "seattle-reign.json": "https://fixturedownload.com/feed/json/nwsl-2026/seattle-reign",
         "san-francisco-giants.json": "https://fixturedownload.com/feed/json/mlb-2026/san-francisco-giants",
@@ -34,6 +37,7 @@ def update_local_jsons():
         "atlanta-united.json": "https://fixturedownload.com/feed/json/mls-2026/atlanta-united"
     }
     for filename, url in urls.items():
+        filepath = data_dir / filename
         print(f"Downloading latest schedule for {filename}...")
         try:
             # Use a standard user-agent to prevent basic 403 Forbidden errors
@@ -41,7 +45,7 @@ def update_local_jsons():
                 url, headers={'User-Agent': 'Mozilla/5.0'})
             with urllib.request.urlopen(req) as response:
                 data = json.loads(response.read().decode('utf-8'))
-                with open(filename, 'w') as f:
+                with open(filepath, 'w') as f:
                     json.dump(data, f, indent=2)
             print(f"Successfully updated {filename}")
         except Exception as e:
@@ -49,8 +53,9 @@ def update_local_jsons():
 
 
 def parse_and_combine_schedules(home_mode=False):
-    # Get all JSON files in the current directory
-    json_files = [f for f in Path('.').glob(
+    # Get all JSON files in the data directory
+    data_dir = Path('data')
+    json_files = [f for f in data_dir.glob(
         '*.json') if 'final_schedules' not in f.name]
 
     all_schedules = []
@@ -277,7 +282,10 @@ def parse_and_combine_schedules(home_mode=False):
     print(len(final_schedules))
 
     # Save results to a file
-    output_file = 'final_schedules_home.json' if home_mode else 'final_schedules_away.json'
+    output_dir = Path('output')
+    output_dir.mkdir(exist_ok=True)
+    output_file = output_dir / \
+        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
     with open(output_file, 'w') as f:
         json.dump(final_schedules, f, indent=2)
     print(f"Results successfully saved to {output_file}")

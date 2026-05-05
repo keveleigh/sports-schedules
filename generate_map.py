@@ -2,13 +2,20 @@ import json
 import folium
 import dateutil.parser
 import argparse
+from pathlib import Path
 from collections import defaultdict
 from branca.element import Template, MacroElement
 
 
 def create_map(home_mode=False):
-    input_file = 'final_schedules_home.json' if home_mode else 'final_schedules_away.json'
-    output_file = 'map_home.html' if home_mode else 'map_away.html'
+    input_dir = Path('output')
+    input_file = input_dir / \
+        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
+
+    output_dir = Path('html')
+    output_dir.mkdir(exist_ok=True)
+    output_file = output_dir / \
+        ('map_home.html' if home_mode else 'map_away.html')
 
     try:
         with open(input_file, 'r') as f:

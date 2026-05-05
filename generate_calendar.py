@@ -1,11 +1,18 @@
 import json
 import argparse
 import dateutil.parser
+from pathlib import Path
 
 
 def create_calendar(home_mode=False):
-    input_file = 'final_schedules_home.json' if home_mode else 'final_schedules_away.json'
-    output_file = 'calendar_home.html' if home_mode else 'calendar_away.html'
+    input_dir = Path('output')
+    input_file = input_dir / \
+        ('final_schedules_home.json' if home_mode else 'final_schedules_away.json')
+
+    output_dir = Path('html')
+    output_dir.mkdir(exist_ok=True)
+    output_file = output_dir / \
+        ('calendar_home.html' if home_mode else 'calendar_away.html')
 
     try:
         with open(input_file, 'r') as f:
