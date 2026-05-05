@@ -7,8 +7,10 @@ from pathlib import Path
 
 import dateutil.parser
 import pytz
-from timezonefinder import TimezoneFinder
 
+
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate distance in miles between two coordinates using the Haversine formula."""
@@ -31,13 +33,7 @@ def update_local_jsons():
     data_dir = Path('data')
     data_dir.mkdir(exist_ok=True)
 
-    urls = {
-        "seattle-reign.json": "https://fixturedownload.com/feed/json/nwsl-2026/seattle-reign",
-        "san-francisco-giants.json": "https://fixturedownload.com/feed/json/mlb-2026/san-francisco-giants",
-        "seattle-mariners.json": "https://fixturedownload.com/feed/json/mlb-2026/seattle-mariners",
-        "seattle-sounders-fc.json": "https://fixturedownload.com/feed/json/mls-2026/seattle-sounders-fc",
-        "atlanta-united.json": "https://fixturedownload.com/feed/json/mls-2026/atlanta-united"
-    }
+    urls = config.get("urls", {})
     for filename, url in urls.items():
         filepath = data_dir / filename
         print(f"Downloading latest schedule for {filename}...")
@@ -62,94 +58,12 @@ def parse_and_combine_schedules(home_mode=False):
 
     all_schedules = []
 
-    # Create a dictionary of all MLB stadiums as keys with their cities and states as the value
-    mlb_stadiums = {
-        "American Family Field": ("Milwaukee", "WI", 43.028, -87.971),
-        "Angel Stadium": ("Anaheim", "CA", 33.800, -117.882),
-        "Busch Stadium": ("St. Louis", "MO", 38.622, -90.192),
-        "Chase Field": ("Phoenix", "AZ", 33.445, -112.066),
-        "Citi Field": ("New York", "NY", 40.757, -73.845),
-        "Citizens Bank Park": ("Philadelphia", "PA", 39.905, -75.166),
-        "Comerica Park": ("Detroit", "MI", 42.339, -83.048),
-        "Coors Field": ("Denver", "CO", 39.755, -104.994),
-        "Daikin Park": ("Houston", "TX", 29.757, -95.355),
-        "Dodger Stadium": ("Los Angeles", "CA", 34.073, -118.240),
-        "Fenway Park": ("Boston", "MA", 42.346, -71.097),
-        "Globe Life Field": ("Arlington", "TX", 32.747, -97.083),
-        "Great American Ball Park": ("Cincinnati", "OH", 39.097, -84.506),
-        "Kauffman Stadium": ("Kansas City", "MO", 39.051, -94.480),
-        "loanDepot park": ("Miami", "FL", 25.778, -80.219),
-        "Nationals Park": ("Washington", "DC", 38.873, -77.007),
-        "Oracle Park": ("San Francisco", "CA", 37.778, -122.389),
-        "Oriole Park at Camden Yards": ("Baltimore", "MD", 39.284, -76.621),
-        "Petco Park": ("San Diego", "CA", 32.707, -117.156),
-        "PNC Park": ("Pittsburgh", "PA", 40.446, -80.005),
-        "Progressive Field": ("Cleveland", "OH", 41.496, -81.685),
-        "Rate Field": ("Chicago", "IL", 41.830, -87.633),
-        "Rogers Centre": ("Toronto", "ON", 43.641, -79.389),
-        "Sutter Health Park": ("Sacramento", "CA", 38.580, -121.505),
-        "T-Mobile Park": ("Seattle", "WA", 47.591, -122.332),
-        "Target Field": ("Minneapolis", "MN", 44.981, -93.277),
-        "Tropicana Field": ("St. Petersburg", "FL", 27.768, -82.653),
-        "Truist Park": ("Atlanta", "GA", 33.890, -84.467),
-        "Wrigley Field": ("Chicago", "IL", 41.948, -87.655),
-        "Yankee Stadium": ("New York", "NY", 40.829, -73.926),
-    }
-
-    # Create a dictionary of all MLS stadiums as keys with their cities and states as the value
-    mls_stadiums = {
-        "Allianz Field": ("Saint Paul", "MN", 44.953, -93.165),
-        "America First Field": ("Sandy", "UT", 40.582, -111.893),
-        "Audi Field": ("Washington", "DC", 38.868, -77.012),
-        "Bank of America Stadium": ("Charlotte", "NC", 35.225, -80.852),
-        "BC Place": ("Vancouver", "BC", 49.276, -123.111),
-        "BMO Field": ("Toronto", "ON", 43.633, -79.418),
-        "BMO Stadium": ("Los Angeles", "CA", 34.013, -118.284),
-        "DICK'S Sporting Goods Park": ("Commerce City", "CO", 39.805, -104.891),
-        "Dignity Health Sports Park": ("Carson", "CA", 33.864, -118.261),
-        "Energizer Park": ("St. Louis", "MO", 38.631, -90.210),
-        "GEODIS Park": ("Nashville", "TN", 36.130, -86.767),
-        "Gillette Stadium": ("Foxborough", "MA", 42.090, -71.264),
-        "Inter&Co Stadium": ("Orlando", "FL", 28.541, -81.389),
-        "Lumen Field": ("Seattle", "WA", 47.595, -122.331),
-        "Mercedes-Benz Stadium": ("Atlanta", "GA", 33.755, -84.400),
-        "Nu Stadium": ("Miami", "FL", 25.793, -80.259),
-        "PayPal Park": ("San Jose", "CA", 37.351, -121.925),
-        "Providence Park": ("Portland", "OR", 45.521, -122.691),
-        "Q2 Stadium": ("Austin", "TX", 30.388, -97.719),
-        "Red Bull Arena": ("Harrison", "NJ", 40.736, -74.150),
-        "ScottsMiracle-Gro Field": ("Columbus", "OH", 39.968, -83.017),
-        "Shell Energy Stadium": ("Houston", "TX", 29.752, -95.352),
-        "Snapdragon Stadium": ("San Diego", "CA", 32.784, -117.119),
-        "Soldier Field": ("Chicago", "IL", 41.862, -87.616),
-        "Sporting Park": ("Kansas City", "MO", 39.121, -94.823),
-        "Stade Saputo": ("Montreal", "QC", 45.563, -73.551),
-        "Subaru Park": ("Chester", "PA", 39.832, -75.378),
-        "Sports Illustrated Stadium": ("Harrison", "NJ", 40.094, -73.900),
-        "Toyota Stadium": ("Frisco", "TX", 33.154, -96.835),
-        "TQL Stadium": ("Cincinnati", "OH", 39.111, -84.522),
-    }
-
-    # Create a dictionary of all NWSL stadiums as keys with their cities and states as the value
-    nwsl_stadiums = {
-        "Providence Park": ("Portland", "OR", 45.521, -122.691),
-        "Lumen Field": ("Seattle", "WA", 47.595, -122.331),
-        "BMO Stadium": ("Los Angeles", "CA", 34.013, -118.284),
-        "Snapdragon Stadium": ("San Diego", "CA", 32.784, -117.119),
-        # "Red Bull Arena": ("Harrison", "NJ", 40.736, -74.150),
-        "First Horizon Stadium at WakeMed Soccer Park": ("Cary", "NC", 35.785, -78.753),
-        "Audi Field": ("Washington", "DC", 38.868, -77.012),
-        "Lynn Family Stadium": ("Louisville", "KY", 38.259, -85.733),
-        "CPKC Stadium": ("Kansas City", "KS", 39.117, -94.573),
-        "Northwestern Medicine Field at Martin Stadium": ("Evanston", "IL", 42.065, -87.674),
-        "Inter&Co Stadium": ("Orlando", "FL", 28.541, -81.389),
-        "Shell Energy Stadium": ("Houston", "TX", 29.752, -95.352),
-        "PayPal Park": ("San Jose", "CA", 37.351, -121.925),
-        "America First Field": ("Sandy", "UT", 40.582, -111.893),
-        "Centreville Bank Stadium": ("Pawtucket", "RI", 41.875, -71.382),
-        "Icahn Stadium": ("New York", "NY", 40.793, -73.925),
-        "Centennial Stadium": ("Centennial", "CO", 39.583, -104.827),
-    }
+    stadiums = config.get("stadiums", {})
+    file_leagues = config.get("file_leagues", {})
+    if home_mode:
+        included_teams = set(config.get("home_teams", []))
+    else:
+        included_teams = set(config.get("away_teams", []))
 
     missing_stadiums = set()
 
@@ -158,18 +72,6 @@ def parse_and_combine_schedules(home_mode=False):
         try:
             with open(json_file, 'r') as f:
                 data = json.load(f)
-                stem = json_file.stem.lower()
-                is_mlb = "giants" in stem or "mariners" in stem
-                is_mls = "sounders" in stem or "atlanta" in stem
-                # Filter in specified away teams
-                if home_mode:
-                    included_teams = {
-                        "Seattle Mariners", "Seattle Sounders FC"}
-                else:
-                    included_teams = {"San Francisco Giants", "Seattle Mariners",
-                                      "Seattle Sounders FC", "Atlanta United", "Seattle Reign"}
-                # Handle both list and dict formats
-                stadiums = mlb_stadiums if is_mlb else mls_stadiums if is_mls else nwsl_stadiums
 
                 if not isinstance(data, list):
                     data = [data]
@@ -177,15 +79,17 @@ def parse_and_combine_schedules(home_mode=False):
                 for item in data:
                     team_key = 'HomeTeam' if home_mode else 'AwayTeam'
                     if item.get(team_key) in included_teams:
-                        league = 'MLB' if is_mlb else 'MLS' if is_mls else 'NWSL'
+                        league = file_leagues.get(json_file.name, 'Unknown')
                         location = item.get('Location')
                         if location not in stadiums and location is not None:
                             missing_stadiums.add(f"{location} ({league})")
 
-                        city, state, lat, lon = stadiums.get(
-                            location, ("Unknown", "Unknown", 0.0, 0.0))
+                        stadium_info = stadiums.get(location, ["Unknown", "Unknown", 0.0, 0.0, None])
+                        city, state, lat, lon = stadium_info[0], stadium_info[1], stadium_info[2], stadium_info[3]
+                        tz_str = stadium_info[4] if len(stadium_info) > 4 else None
+
                         all_schedules.append(
-                            {**item, 'City': city, 'State': state, 'Lat': lat, 'Lon': lon, 'League': league})
+                            {**item, 'City': city, 'State': state, 'Lat': lat, 'Lon': lon, 'League': league, 'Timezone': tz_str})
         except json.JSONDecodeError:
             print(f"Error parsing {json_file}")
 
@@ -207,11 +111,9 @@ def parse_and_combine_schedules(home_mode=False):
     all_schedules.sort(key=lambda x: dateutil.parser.parse(x['DateUtc']))
 
     # Add Local Time conversion
-    tf = TimezoneFinder()
     for game in all_schedules:
         dt_utc = dateutil.parser.parse(game['DateUtc'])
-        tz_str = tf.timezone_at(lat=game.get(
-            'Lat', 0.0), lng=game.get('Lon', 0.0))
+        tz_str = game.get('Timezone')
         if tz_str:
             local_tz = pytz.timezone(tz_str)
             dt_local = dt_utc.astimezone(local_tz)

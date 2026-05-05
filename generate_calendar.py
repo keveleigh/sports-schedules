@@ -8,6 +8,9 @@ import dateutil.parser
 import schedules
 
 
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
 def create_calendar(home_mode=False):
     input_dir = Path('output')
     input_file = input_dir / \
@@ -29,13 +32,7 @@ def create_calendar(home_mode=False):
         print("No games to map!")
         return
 
-    team_colors = {
-        "San Francisco Giants": "orange",
-        "Seattle Mariners": "cadetblue",
-        "Seattle Sounders FC": "green",
-        "Seattle Reign": "darkblue",
-        "Atlanta United": "red"
-    }
+    team_colors = {team: style["color"] for team, style in config.get("team_styles", {}).items()}
 
     # Build Connected Components to group games into "Trips"
     n = len(games)
@@ -135,6 +132,7 @@ def create_calendar(home_mode=False):
         var calendar_{idx} = new FullCalendar.Calendar(calendarEl_{idx}, {{
           initialView: 'listYear',
           height: 'auto',
+          headerToolbar: false,
           events: {json.dumps(events)},
           eventContent: function(arg) {{
             let html = '<b>' + arg.event.title + '</b><br>';

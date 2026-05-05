@@ -8,6 +8,9 @@ import folium
 from branca.element import MacroElement, Template
 
 
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
 def create_map(home_mode=False):
     input_dir = Path('output')
     input_file = input_dir / \
@@ -33,12 +36,7 @@ def create_map(home_mode=False):
     m = folium.Map(location=[39.8283, -98.5795], zoom_start=4)
 
     # Define custom styles for each team
-    team_styles = {
-        "San Francisco Giants": {"color": "orange", "icon": "baseball", "prefix": "fa"},
-        "Seattle Mariners": {"color": "cadetblue", "icon": "anchor", "prefix": "fa"},
-        "Seattle Sounders FC": {"color": "green", "icon": "futbol", "prefix": "fa"},
-        "Seattle Reign": {"color": "darkblue", "icon": "crown", "prefix": "fa"}
-    }
+    team_styles = config.get("team_styles", {})
 
     # Group games by their exact coordinates
     grouped_games = defaultdict(list)
@@ -96,15 +94,19 @@ def create_map(home_mode=False):
         lats, lons = zip(*grouped_games.keys())
         m.fit_bounds([[min(lats), min(lons)], [max(lats), max(lons)]])
 
+    legend_items = ""
+    for team, style in team_styles.items():
+        legend_items += f'<span style="color: {style["color"]};">&#9608;</span> {team}<br>\n        '
+
     # Add a custom legend
-    legend_html = '''
-    {% macro html(this, kwargs) %}
+    legend_html = f'''
+    {{% macro html(this, kwargs) %}}
     <div style="
         position: fixed; 
         bottom: 50px; 
         left: 50px; 
-        width: 140px; 
-        height: 125px; 
+        width: auto; 
+        height: auto; 
         background-color: white; 
         border: 2px solid grey; 
         z-index: 9999; 
@@ -112,12 +114,9 @@ def create_map(home_mode=False):
         padding: 10px;
         ">
         <b>Team Legend</b><br>
-        <span style="color: orange;">&#9608;</span> SF Giants<br>
-        <span style="color: cadetblue;">&#9608;</span> Mariners<br>
-        <span style="color: green;">&#9608;</span> Sounders<br>
-        <span style="color: darkblue;">&#9608;</span> Reign
+        {legend_items.strip()}
     </div>
-    {% endmacro %}
+    {{% endmacro %}}
     '''
     legend = MacroElement()
     legend._template = Template(legend_html)

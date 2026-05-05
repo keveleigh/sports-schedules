@@ -1,0 +1,525 @@
+{
+    "urls": {
+        "seattle-reign.json": "https://fixturedownload.com/feed/json/nwsl-2026/seattle-reign",
+        "san-francisco-giants.json": "https://fixturedownload.com/feed/json/mlb-2026/san-francisco-giants",
+        "seattle-mariners.json": "https://fixturedownload.com/feed/json/mlb-2026/seattle-mariners",
+        "seattle-sounders-fc.json": "https://fixturedownload.com/feed/json/mls-2026/seattle-sounders-fc",
+        "atlanta-united.json": "https://fixturedownload.com/feed/json/mls-2026/atlanta-united"
+    },
+    "home_teams": [
+        "Seattle Mariners",
+        "Seattle Sounders FC"
+    ],
+    "away_teams": [
+        "San Francisco Giants",
+        "Seattle Mariners",
+        "Seattle Sounders FC",
+        "Atlanta United",
+        "Seattle Reign"
+    ],
+    "team_styles": {
+        "San Francisco Giants": {
+            "color": "orange",
+            "icon": "baseball",
+            "prefix": "fa"
+        },
+        "Seattle Mariners": {
+            "color": "cadetblue",
+            "icon": "anchor",
+            "prefix": "fa"
+        },
+        "Seattle Sounders FC": {
+            "color": "green",
+            "icon": "futbol",
+            "prefix": "fa"
+        },
+        "Seattle Reign": {
+            "color": "darkblue",
+            "icon": "crown",
+            "prefix": "fa"
+        },
+        "Atlanta United": {
+            "color": "red",
+            "icon": "fire",
+            "prefix": "fa"
+        }
+    },
+    "file_leagues": {
+        "seattle-reign.json": "NWSL",
+        "san-francisco-giants.json": "MLB",
+        "seattle-mariners.json": "MLB",
+        "seattle-sounders-fc.json": "MLS",
+        "atlanta-united.json": "MLS"
+    },
+    "stadiums": {
+        "Allianz Field": [
+            "Saint Paul",
+            "MN",
+            44.953,
+            -93.165,
+            "America/Chicago"
+        ],
+        "America First Field": [
+            "Sandy",
+            "UT",
+            40.582,
+            -111.893,
+            "America/Denver"
+        ],
+        "American Family Field": [
+            "Milwaukee",
+            "WI",
+            43.028,
+            -87.971,
+            "America/Chicago"
+        ],
+        "Angel Stadium": [
+            "Anaheim",
+            "CA",
+            33.800,
+            -117.882,
+            "America/Los_Angeles"
+        ],
+        "Audi Field": [
+            "Washington",
+            "DC",
+            38.868,
+            -77.012,
+            "America/New_York"
+        ],
+        "Bank of America Stadium": [
+            "Charlotte",
+            "NC",
+            35.225,
+            -80.852,
+            "America/New_York"
+        ],
+        "BC Place": [
+            "Vancouver",
+            "BC",
+            49.276,
+            -123.111,
+            "America/Vancouver"
+        ],
+        "BMO Field": [
+            "Toronto",
+            "ON",
+            43.633,
+            -79.418,
+            "America/Toronto"
+        ],
+        "BMO Stadium": [
+            "Los Angeles",
+            "CA",
+            34.013,
+            -118.284,
+            "America/Los_Angeles"
+        ],
+        "Busch Stadium": [
+            "St. Louis",
+            "MO",
+            38.622,
+            -90.192,
+            "America/Chicago"
+        ],
+        "Centennial Stadium": [
+            "Centennial",
+            "CO",
+            39.583,
+            -104.827,
+            "America/Denver"
+        ],
+        "Centreville Bank Stadium": [
+            "Pawtucket",
+            "RI",
+            41.875,
+            -71.382,
+            "America/New_York"
+        ],
+        "Chase Field": [
+            "Phoenix",
+            "AZ",
+            33.445,
+            -112.066,
+            "America/Phoenix"
+        ],
+        "Citi Field": [
+            "New York",
+            "NY",
+            40.757,
+            -73.845,
+            "America/New_York"
+        ],
+        "Citizens Bank Park": [
+            "Philadelphia",
+            "PA",
+            39.905,
+            -75.166,
+            "America/New_York"
+        ],
+        "Comerica Park": [
+            "Detroit",
+            "MI",
+            42.339,
+            -83.048,
+            "America/Detroit"
+        ],
+        "Coors Field": [
+            "Denver",
+            "CO",
+            39.755,
+            -104.994,
+            "America/Denver"
+        ],
+        "CPKC Stadium": [
+            "Kansas City",
+            "KS",
+            39.117,
+            -94.573,
+            "America/Chicago"
+        ],
+        "Daikin Park": [
+            "Houston",
+            "TX",
+            29.757,
+            -95.355,
+            "America/Chicago"
+        ],
+        "DICK'S Sporting Goods Park": [
+            "Commerce City",
+            "CO",
+            39.805,
+            -104.891,
+            "America/Denver"
+        ],
+        "Dignity Health Sports Park": [
+            "Carson",
+            "CA",
+            33.864,
+            -118.261,
+            "America/Los_Angeles"
+        ],
+        "Dodger Stadium": [
+            "Los Angeles",
+            "CA",
+            34.073,
+            -118.240,
+            "America/Los_Angeles"
+        ],
+        "Energizer Park": [
+            "St. Louis",
+            "MO",
+            38.631,
+            -90.210,
+            "America/Chicago"
+        ],
+        "Fenway Park": [
+            "Boston",
+            "MA",
+            42.346,
+            -71.097,
+            "America/New_York"
+        ],
+        "First Horizon Stadium at WakeMed Soccer Park": [
+            "Cary",
+            "NC",
+            35.785,
+            -78.753,
+            "America/New_York"
+        ],
+        "GEODIS Park": [
+            "Nashville",
+            "TN",
+            36.130,
+            -86.767,
+            "America/Chicago"
+        ],
+        "Gillette Stadium": [
+            "Foxborough",
+            "MA",
+            42.090,
+            -71.264,
+            "America/New_York"
+        ],
+        "Globe Life Field": [
+            "Arlington",
+            "TX",
+            32.747,
+            -97.083,
+            "America/Chicago"
+        ],
+        "Great American Ball Park": [
+            "Cincinnati",
+            "OH",
+            39.097,
+            -84.506,
+            "America/New_York"
+        ],
+        "Icahn Stadium": [
+            "New York",
+            "NY",
+            40.793,
+            -73.925,
+            "America/New_York"
+        ],
+        "Inter&Co Stadium": [
+            "Orlando",
+            "FL",
+            28.541,
+            -81.389,
+            "America/New_York"
+        ],
+        "Kauffman Stadium": [
+            "Kansas City",
+            "MO",
+            39.051,
+            -94.480,
+            "America/Chicago"
+        ],
+        "loanDepot park": [
+            "Miami",
+            "FL",
+            25.778,
+            -80.219,
+            "America/New_York"
+        ],
+        "Lumen Field": [
+            "Seattle",
+            "WA",
+            47.595,
+            -122.331,
+            "America/Los_Angeles"
+        ],
+        "Lynn Family Stadium": [
+            "Louisville",
+            "KY",
+            38.259,
+            -85.733,
+            "America/New_York"
+        ],
+        "Mercedes-Benz Stadium": [
+            "Atlanta",
+            "GA",
+            33.755,
+            -84.400,
+            "America/New_York"
+        ],
+        "Nationals Park": [
+            "Washington",
+            "DC",
+            38.873,
+            -77.007,
+            "America/New_York"
+        ],
+        "Northwestern Medicine Field at Martin Stadium": [
+            "Evanston",
+            "IL",
+            42.065,
+            -87.674,
+            "America/Chicago"
+        ],
+        "Nu Stadium": [
+            "Miami",
+            "FL",
+            25.793,
+            -80.259,
+            "America/New_York"
+        ],
+        "Oracle Park": [
+            "San Francisco",
+            "CA",
+            37.778,
+            -122.389,
+            "America/Los_Angeles"
+        ],
+        "Oriole Park at Camden Yards": [
+            "Baltimore",
+            "MD",
+            39.284,
+            -76.621,
+            "America/New_York"
+        ],
+        "PayPal Park": [
+            "San Jose",
+            "CA",
+            37.351,
+            -121.925,
+            "America/Los_Angeles"
+        ],
+        "Petco Park": [
+            "San Diego",
+            "CA",
+            32.707,
+            -117.156,
+            "America/Los_Angeles"
+        ],
+        "PNC Park": [
+            "Pittsburgh",
+            "PA",
+            40.446,
+            -80.005,
+            "America/New_York"
+        ],
+        "Progressive Field": [
+            "Cleveland",
+            "OH",
+            41.496,
+            -81.685,
+            "America/New_York"
+        ],
+        "Providence Park": [
+            "Portland",
+            "OR",
+            45.521,
+            -122.691,
+            "America/Los_Angeles"
+        ],
+        "Q2 Stadium": [
+            "Austin",
+            "TX",
+            30.388,
+            -97.719,
+            "America/Chicago"
+        ],
+        "Rate Field": [
+            "Chicago",
+            "IL",
+            41.830,
+            -87.633,
+            "America/Chicago"
+        ],
+        "Red Bull Arena": [
+            "Harrison",
+            "NJ",
+            40.736,
+            -74.150,
+            "America/New_York"
+        ],
+        "Rogers Centre": [
+            "Toronto",
+            "ON",
+            43.641,
+            -79.389,
+            "America/Toronto"
+        ],
+        "ScottsMiracle-Gro Field": [
+            "Columbus",
+            "OH",
+            39.968,
+            -83.017,
+            "America/New_York"
+        ],
+        "Shell Energy Stadium": [
+            "Houston",
+            "TX",
+            29.752,
+            -95.352,
+            "America/Chicago"
+        ],
+        "Snapdragon Stadium": [
+            "San Diego",
+            "CA",
+            32.784,
+            -117.119,
+            "America/Los_Angeles"
+        ],
+        "Soldier Field": [
+            "Chicago",
+            "IL",
+            41.862,
+            -87.616,
+            "America/Chicago"
+        ],
+        "Sporting Park": [
+            "Kansas City",
+            "MO",
+            39.121,
+            -94.823,
+            "America/Chicago"
+        ],
+        "Sports Illustrated Stadium": [
+            "Harrison",
+            "NJ",
+            40.094,
+            -73.900,
+            "America/New_York"
+        ],
+        "Stade Saputo": [
+            "Montreal",
+            "QC",
+            45.563,
+            -73.551,
+            "America/Toronto"
+        ],
+        "Subaru Park": [
+            "Chester",
+            "PA",
+            39.832,
+            -75.378,
+            "America/New_York"
+        ],
+        "Sutter Health Park": [
+            "Sacramento",
+            "CA",
+            38.580,
+            -121.505,
+            "America/Los_Angeles"
+        ],
+        "T-Mobile Park": [
+            "Seattle",
+            "WA",
+            47.591,
+            -122.332,
+            "America/Los_Angeles"
+        ],
+        "Target Field": [
+            "Minneapolis",
+            "MN",
+            44.981,
+            -93.277,
+            "America/Chicago"
+        ],
+        "Toyota Stadium": [
+            "Frisco",
+            "TX",
+            33.154,
+            -96.835,
+            "America/Chicago"
+        ],
+        "TQL Stadium": [
+            "Cincinnati",
+            "OH",
+            39.111,
+            -84.522,
+            "America/New_York"
+        ],
+        "Tropicana Field": [
+            "St. Petersburg",
+            "FL",
+            27.768,
+            -82.653,
+            "America/New_York"
+        ],
+        "Truist Park": [
+            "Atlanta",
+            "GA",
+            33.890,
+            -84.467,
+            "America/New_York"
+        ],
+        "Wrigley Field": [
+            "Chicago",
+            "IL",
+            41.948,
+            -87.655,
+            "America/Chicago"
+        ],
+        "Yankee Stadium": [
+            "New York",
+            "NY",
+            40.829,
+            -73.926,
+            "America/New_York"
+        ]
+    }
+}

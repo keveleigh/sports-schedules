@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_ccaca94a7bb92e33a94a9d62288ee5e9 {
+                #map_c159b52a9159e6bf9b5f2e32eca72a2d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,15 +54,15 @@
 <body>
     
     
-            <div class="folium-map" id="map_ccaca94a7bb92e33a94a9d62288ee5e9" ></div>
+            <div class="folium-map" id="map_c159b52a9159e6bf9b5f2e32eca72a2d" ></div>
         
     
     <div style="
         position: fixed; 
         bottom: 50px; 
         left: 50px; 
-        width: 140px; 
-        height: 125px; 
+        width: auto; 
+        height: auto; 
         background-color: white; 
         border: 2px solid grey; 
         z-index: 9999; 
@@ -70,10 +70,11 @@
         padding: 10px;
         ">
         <b>Team Legend</b><br>
-        <span style="color: orange;">&#9608;</span> SF Giants<br>
-        <span style="color: cadetblue;">&#9608;</span> Mariners<br>
-        <span style="color: green;">&#9608;</span> Sounders<br>
-        <span style="color: darkblue;">&#9608;</span> Reign
+        <span style="color: orange;">&#9608;</span> San Francisco Giants<br>
+        <span style="color: cadetblue;">&#9608;</span> Seattle Mariners<br>
+        <span style="color: green;">&#9608;</span> Seattle Sounders FC<br>
+        <span style="color: darkblue;">&#9608;</span> Seattle Reign<br>
+        <span style="color: red;">&#9608;</span> Atlanta United<br>
     </div>
     
     
@@ -99,8 +100,8 @@
 <script>
     
     
-            var map_ccaca94a7bb92e33a94a9d62288ee5e9 = L.map(
-                "map_ccaca94a7bb92e33a94a9d62288ee5e9",
+            var map_c159b52a9159e6bf9b5f2e32eca72a2d = L.map(
+                "map_c159b52a9159e6bf9b5f2e32eca72a2d",
                 {
                     center: [39.8283, -98.5795],
                     crs: L.CRS.EPSG3857,
@@ -117,7 +118,7 @@
 
         
     
-            var tile_layer_ac9995196ce52a077678d789a3a67106 = L.tileLayer(
+            var tile_layer_53d61bc6ea42cdead8eb4bed8b08de0a = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -134,17 +135,17 @@
             );
         
     
-            tile_layer_ac9995196ce52a077678d789a3a67106.addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            tile_layer_53d61bc6ea42cdead8eb4bed8b08de0a.addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var marker_2196e5a821529bc8218b4e5843701320 = L.marker(
+            var marker_c0ce85a23f5cf4b9a852f3f4f5ec4c80 = L.marker(
                 [32.784, -117.119],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_42bd09ecbf343347e667d5803394dcc9 = L.AwesomeMarkers.icon(
+            var icon_5d76458b83cd50ee7e435e78087c993a = L.AwesomeMarkers.icon(
                 {
   "markerColor": "darkblue",
   "iconColor": "white",
@@ -155,34 +156,34 @@
             );
         
     
-        var popup_ea052bc75490fa174e94515770ef7ff1 = L.popup({
+        var popup_a6e999a3515038b59b1ce0700a1796e9 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_800124431a768f96dfa7057075be0399 = $(`<div id="html_800124431a768f96dfa7057075be0399" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ San Diego Wave</b><br><i>NWSL - Snapdragon Stadium</i><br>July 26, 2026 at 02:00 PM PDT<br><b>Nearby Games:</b><ul><li>San Francisco Giants (5.74 mi) - July 30, 2026 at 06:40 PM PDT</li></ul></div>`)[0];
-                popup_ea052bc75490fa174e94515770ef7ff1.setContent(html_800124431a768f96dfa7057075be0399);
+                var html_d75b4a63c6e1dfe483786909c75ed54e = $(`<div id="html_d75b4a63c6e1dfe483786909c75ed54e" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ San Diego Wave</b><br><i>NWSL - Snapdragon Stadium</i><br>July 26, 2026 at 02:00 PM PDT<br><b>Nearby Games:</b><ul><li>San Francisco Giants (5.74 mi) - July 30, 2026 at 06:40 PM PDT</li></ul></div>`)[0];
+                popup_a6e999a3515038b59b1ce0700a1796e9.setContent(html_d75b4a63c6e1dfe483786909c75ed54e);
             
         
 
-        marker_2196e5a821529bc8218b4e5843701320.bindPopup(popup_ea052bc75490fa174e94515770ef7ff1)
+        marker_c0ce85a23f5cf4b9a852f3f4f5ec4c80.bindPopup(popup_a6e999a3515038b59b1ce0700a1796e9)
         ;
 
         
     
     
-                marker_2196e5a821529bc8218b4e5843701320.setIcon(icon_42bd09ecbf343347e667d5803394dcc9);
+                marker_c0ce85a23f5cf4b9a852f3f4f5ec4c80.setIcon(icon_5d76458b83cd50ee7e435e78087c993a);
             
     
-            var marker_37a6a5b309a01843a127df3883682dc4 = L.marker(
+            var marker_66e09f1712853ccaa57c25c3b904e32d = L.marker(
                 [32.707, -117.156],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_be8a83a1b47ac85507179c9a7e17d753 = L.AwesomeMarkers.icon(
+            var icon_d5f5c50e82601eb95ca1a0f47bfc3469 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -193,34 +194,34 @@
             );
         
     
-        var popup_0d8e5c69d1c89eb3f4b086af2936ffa6 = L.popup({
+        var popup_b9701024b5d1e990792cf63b912f5e04 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_80ace7942d61bcd57ba0952275991664 = $(`<div id="html_80ace7942d61bcd57ba0952275991664" style="width: 100.0%; height: 100.0%;"><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>July 30, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (5.74 mi) - July 26, 2026 at 02:00 PM PDT</li></ul><hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>July 31, 2026 at 06:40 PM PDT<hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>August 01, 2026 at 05:40 PM PDT<hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>August 02, 2026 at 01:10 PM PDT</div>`)[0];
-                popup_0d8e5c69d1c89eb3f4b086af2936ffa6.setContent(html_80ace7942d61bcd57ba0952275991664);
+                var html_5da12ba1aa1cfbdeb93731ae7a5d335a = $(`<div id="html_5da12ba1aa1cfbdeb93731ae7a5d335a" style="width: 100.0%; height: 100.0%;"><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>July 30, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (5.74 mi) - July 26, 2026 at 02:00 PM PDT</li></ul><hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>July 31, 2026 at 06:40 PM PDT<hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>August 01, 2026 at 05:40 PM PDT<hr><b>San Francisco Giants @ San Diego Padres</b><br><i>MLB - Petco Park</i><br>August 02, 2026 at 01:10 PM PDT</div>`)[0];
+                popup_b9701024b5d1e990792cf63b912f5e04.setContent(html_5da12ba1aa1cfbdeb93731ae7a5d335a);
             
         
 
-        marker_37a6a5b309a01843a127df3883682dc4.bindPopup(popup_0d8e5c69d1c89eb3f4b086af2936ffa6)
+        marker_66e09f1712853ccaa57c25c3b904e32d.bindPopup(popup_b9701024b5d1e990792cf63b912f5e04)
         ;
 
         
     
     
-                marker_37a6a5b309a01843a127df3883682dc4.setIcon(icon_be8a83a1b47ac85507179c9a7e17d753);
+                marker_66e09f1712853ccaa57c25c3b904e32d.setIcon(icon_d5f5c50e82601eb95ca1a0f47bfc3469);
             
     
-            var marker_8b1b58c338a647cc8f8dcfe86f2e681d = L.marker(
+            var marker_5e3738b41849331c595249050e51b7ad = L.marker(
                 [33.864, -118.261],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_3aa9ca72bff3ffd03823430ae49f3d73 = L.AwesomeMarkers.icon(
+            var icon_2b36035ae835fa38a9f77c1adb06dcd0 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -231,34 +232,34 @@
             );
         
     
-        var popup_74d88a24c567558ccd078e662fd53e56 = L.popup({
+        var popup_1b8dc22592281d0aacf6219e51e2f440 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_db979ee6cdbe630e54a923ff66d1b2cf = $(`<div id="html_db979ee6cdbe630e54a923ff66d1b2cf" style="width: 100.0%; height: 100.0%;"><b>Seattle Sounders FC @ LA Galaxy</b><br><i>MLS - Dignity Health Sports Park</i><br>September 12, 2026 at 07:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (22.2 mi) - September 14, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (22.2 mi) - September 15, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (22.2 mi) - September 16, 2026 at 06:38 PM PDT</li><li>Seattle Reign (10.38 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
-                popup_74d88a24c567558ccd078e662fd53e56.setContent(html_db979ee6cdbe630e54a923ff66d1b2cf);
+                var html_1f39cda069b05dae6b29c7a35f0de0eb = $(`<div id="html_1f39cda069b05dae6b29c7a35f0de0eb" style="width: 100.0%; height: 100.0%;"><b>Seattle Sounders FC @ LA Galaxy</b><br><i>MLS - Dignity Health Sports Park</i><br>September 12, 2026 at 07:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (22.2 mi) - September 14, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (22.2 mi) - September 15, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (22.2 mi) - September 16, 2026 at 06:38 PM PDT</li><li>Seattle Reign (10.38 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
+                popup_1b8dc22592281d0aacf6219e51e2f440.setContent(html_1f39cda069b05dae6b29c7a35f0de0eb);
             
         
 
-        marker_8b1b58c338a647cc8f8dcfe86f2e681d.bindPopup(popup_74d88a24c567558ccd078e662fd53e56)
+        marker_5e3738b41849331c595249050e51b7ad.bindPopup(popup_1b8dc22592281d0aacf6219e51e2f440)
         ;
 
         
     
     
-                marker_8b1b58c338a647cc8f8dcfe86f2e681d.setIcon(icon_3aa9ca72bff3ffd03823430ae49f3d73);
+                marker_5e3738b41849331c595249050e51b7ad.setIcon(icon_2b36035ae835fa38a9f77c1adb06dcd0);
             
     
-            var marker_e266b11362bbc49323f78fae5a38a152 = L.marker(
+            var marker_a2cf3e9114bf31c299ced764992ca184 = L.marker(
                 [33.8, -117.882],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_2774efb34bfbb2273ce90039da012d88 = L.AwesomeMarkers.icon(
+            var icon_58ceece84a9d9fa5e8f2d8bb17268227 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "cadetblue",
   "iconColor": "white",
@@ -269,34 +270,34 @@
             );
         
     
-        var popup_eff254a046272285d48376c00fcf0507 = L.popup({
+        var popup_d992b93663c44da457a9ecbb358baa9b = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_53a786ae406de8bf09f4749d5071c3dc = $(`<div id="html_53a786ae406de8bf09f4749d5071c3dc" style="width: 100.0%; height: 100.0%;"><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 14, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 15, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 16, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
-                popup_eff254a046272285d48376c00fcf0507.setContent(html_53a786ae406de8bf09f4749d5071c3dc);
+                var html_f288ecf1abb40bcafb604c04f27bc776 = $(`<div id="html_f288ecf1abb40bcafb604c04f27bc776" style="width: 100.0%; height: 100.0%;"><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 14, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 15, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>Seattle Mariners @ Los Angeles Angels</b><br><i>MLB - Angel Stadium</i><br>September 16, 2026 at 06:38 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (22.2 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Reign (27.35 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
+                popup_d992b93663c44da457a9ecbb358baa9b.setContent(html_f288ecf1abb40bcafb604c04f27bc776);
             
         
 
-        marker_e266b11362bbc49323f78fae5a38a152.bindPopup(popup_eff254a046272285d48376c00fcf0507)
+        marker_a2cf3e9114bf31c299ced764992ca184.bindPopup(popup_d992b93663c44da457a9ecbb358baa9b)
         ;
 
         
     
     
-                marker_e266b11362bbc49323f78fae5a38a152.setIcon(icon_2774efb34bfbb2273ce90039da012d88);
+                marker_a2cf3e9114bf31c299ced764992ca184.setIcon(icon_58ceece84a9d9fa5e8f2d8bb17268227);
             
     
-            var marker_aa67107106170dbb0a9d88a01dd79100 = L.marker(
+            var marker_8cc39135f34a7243f62be2ed5a0325c2 = L.marker(
                 [34.013, -118.284],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_b0436a7d0f3119b3d2adbb57c5f4b631 = L.AwesomeMarkers.icon(
+            var icon_f37a27e1f8cd64b9087d3da4e828c1a3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "darkblue",
   "iconColor": "white",
@@ -307,34 +308,34 @@
             );
         
     
-        var popup_e0b6f9a650ecd17857b9f45943044991 = L.popup({
+        var popup_72eedbe90d373716726074f44a512760 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_6f5434b3ed8896c51d70da79cf7852dd = $(`<div id="html_6f5434b3ed8896c51d70da79cf7852dd" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ Angel City</b><br><i>NWSL - BMO Stadium</i><br>September 16, 2026 at 07:00 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (10.38 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 14, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 15, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 16, 2026 at 06:38 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 18, 2026 at 07:10 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 19, 2026 at 06:10 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 20, 2026 at 01:10 PM PDT</li></ul></div>`)[0];
-                popup_e0b6f9a650ecd17857b9f45943044991.setContent(html_6f5434b3ed8896c51d70da79cf7852dd);
+                var html_b90ea7d8a4ff4bc6b56154928667fe99 = $(`<div id="html_b90ea7d8a4ff4bc6b56154928667fe99" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ Angel City</b><br><i>NWSL - BMO Stadium</i><br>September 16, 2026 at 07:00 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (10.38 mi) - September 12, 2026 at 07:30 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 14, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 15, 2026 at 06:38 PM PDT</li><li>Seattle Mariners (27.35 mi) - September 16, 2026 at 06:38 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 18, 2026 at 07:10 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 19, 2026 at 06:10 PM PDT</li><li>San Francisco Giants (4.85 mi) - September 20, 2026 at 01:10 PM PDT</li></ul></div>`)[0];
+                popup_72eedbe90d373716726074f44a512760.setContent(html_b90ea7d8a4ff4bc6b56154928667fe99);
             
         
 
-        marker_aa67107106170dbb0a9d88a01dd79100.bindPopup(popup_e0b6f9a650ecd17857b9f45943044991)
+        marker_8cc39135f34a7243f62be2ed5a0325c2.bindPopup(popup_72eedbe90d373716726074f44a512760)
         ;
 
         
     
     
-                marker_aa67107106170dbb0a9d88a01dd79100.setIcon(icon_b0436a7d0f3119b3d2adbb57c5f4b631);
+                marker_8cc39135f34a7243f62be2ed5a0325c2.setIcon(icon_f37a27e1f8cd64b9087d3da4e828c1a3);
             
     
-            var marker_cabddeccf88d288989faffda19145d49 = L.marker(
+            var marker_f1ab0847b54320b10e749f1068e65940 = L.marker(
                 [39.755, -104.994],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_f25198bbbbdbf75e3c5e4cfcad8de89d = L.AwesomeMarkers.icon(
+            var icon_4646cdb0b1f9ec5424ce67aca504cef8 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "cadetblue",
   "iconColor": "white",
@@ -345,34 +346,34 @@
             );
         
     
-        var popup_ca406bd1922fe563bb34812deee49bb9 = L.popup({
+        var popup_9aa596752adf18f96b3d6db03fd1b8d2 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_6a07389421e4ff059bc5959f3f5dab58 = $(`<div id="html_6a07389421e4ff059bc5959f3f5dab58" style="width: 100.0%; height: 100.0%;"><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 18, 2026 at 06:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul><hr><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 19, 2026 at 06:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul><hr><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 20, 2026 at 01:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul></div>`)[0];
-                popup_ca406bd1922fe563bb34812deee49bb9.setContent(html_6a07389421e4ff059bc5959f3f5dab58);
+                var html_ecd4595284c1e5637e312d024a6b033d = $(`<div id="html_ecd4595284c1e5637e312d024a6b033d" style="width: 100.0%; height: 100.0%;"><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 18, 2026 at 06:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul><hr><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 19, 2026 at 06:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul><hr><b>Seattle Mariners @ Colorado Rockies</b><br><i>MLB - Coors Field</i><br>September 20, 2026 at 01:10 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (14.84 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Sounders FC (6.47 mi) - September 19, 2026 at 07:30 PM MDT</li></ul></div>`)[0];
+                popup_9aa596752adf18f96b3d6db03fd1b8d2.setContent(html_ecd4595284c1e5637e312d024a6b033d);
             
         
 
-        marker_cabddeccf88d288989faffda19145d49.bindPopup(popup_ca406bd1922fe563bb34812deee49bb9)
+        marker_f1ab0847b54320b10e749f1068e65940.bindPopup(popup_9aa596752adf18f96b3d6db03fd1b8d2)
         ;
 
         
     
     
-                marker_cabddeccf88d288989faffda19145d49.setIcon(icon_f25198bbbbdbf75e3c5e4cfcad8de89d);
+                marker_f1ab0847b54320b10e749f1068e65940.setIcon(icon_4646cdb0b1f9ec5424ce67aca504cef8);
             
     
-            var marker_018e2293c07dfaf18cabc33c7e20898e = L.marker(
+            var marker_af36398be40d05a88052f1976ecb1e4e = L.marker(
                 [34.073, -118.24],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_a5e58d29057b11aed232ab01a5abfba5 = L.AwesomeMarkers.icon(
+            var icon_1475eb468a497ca2469cefcec2d59586 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -383,34 +384,34 @@
             );
         
     
-        var popup_5d4e1eef0244997f48402e879b4208ba = L.popup({
+        var popup_43074764cb4af55c796ab02a0b23ca62 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_c03ba5a86da7ac01f6c2fb2933208d5a = $(`<div id="html_c03ba5a86da7ac01f6c2fb2933208d5a" style="width: 100.0%; height: 100.0%;"><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 18, 2026 at 07:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 19, 2026 at 06:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 20, 2026 at 01:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
-                popup_5d4e1eef0244997f48402e879b4208ba.setContent(html_c03ba5a86da7ac01f6c2fb2933208d5a);
+                var html_5cc2acc2dbd9ce022ae5f2cde9d70e4a = $(`<div id="html_5cc2acc2dbd9ce022ae5f2cde9d70e4a" style="width: 100.0%; height: 100.0%;"><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 18, 2026 at 07:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 19, 2026 at 06:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul><hr><b>San Francisco Giants @ Los Angeles Dodgers</b><br><i>MLB - Dodger Stadium</i><br>September 20, 2026 at 01:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Reign (4.85 mi) - September 16, 2026 at 07:00 PM PDT</li></ul></div>`)[0];
+                popup_43074764cb4af55c796ab02a0b23ca62.setContent(html_5cc2acc2dbd9ce022ae5f2cde9d70e4a);
             
         
 
-        marker_018e2293c07dfaf18cabc33c7e20898e.bindPopup(popup_5d4e1eef0244997f48402e879b4208ba)
+        marker_af36398be40d05a88052f1976ecb1e4e.bindPopup(popup_43074764cb4af55c796ab02a0b23ca62)
         ;
 
         
     
     
-                marker_018e2293c07dfaf18cabc33c7e20898e.setIcon(icon_a5e58d29057b11aed232ab01a5abfba5);
+                marker_af36398be40d05a88052f1976ecb1e4e.setIcon(icon_1475eb468a497ca2469cefcec2d59586);
             
     
-            var marker_2766d777ac59d3f486354dcdfd7c08ac = L.marker(
+            var marker_ebbb0af7419a3983faa2bbdb9adeeafe = L.marker(
                 [39.583, -104.827],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_e0bb76c0fbcea50c6c9a0b510982f415 = L.AwesomeMarkers.icon(
+            var icon_3ec96ee47bfdcf809a8d77cf625f6782 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "darkblue",
   "iconColor": "white",
@@ -421,34 +422,34 @@
             );
         
     
-        var popup_e7cedd8be414d83e3c894e96c3f20a40 = L.popup({
+        var popup_b31d0f75f5b1bcde44076df2c920efd4 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_ba6742cddbea51518dd20c0680c03d66 = $(`<div id="html_ba6742cddbea51518dd20c0680c03d66" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ Denver Summit</b><br><i>NWSL - Centennial Stadium</i><br>September 19, 2026 at 06:45 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (14.84 mi) - September 18, 2026 at 06:10 PM MDT</li><li>Seattle Mariners (14.84 mi) - September 19, 2026 at 06:10 PM MDT</li><li>Seattle Sounders FC (15.71 mi) - September 19, 2026 at 07:30 PM MDT</li><li>Seattle Mariners (14.84 mi) - September 20, 2026 at 01:10 PM MDT</li></ul></div>`)[0];
-                popup_e7cedd8be414d83e3c894e96c3f20a40.setContent(html_ba6742cddbea51518dd20c0680c03d66);
+                var html_705e595d20040459494a9ea90580f8a9 = $(`<div id="html_705e595d20040459494a9ea90580f8a9" style="width: 100.0%; height: 100.0%;"><b>Seattle Reign @ Denver Summit</b><br><i>NWSL - Centennial Stadium</i><br>September 19, 2026 at 06:45 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (14.84 mi) - September 18, 2026 at 06:10 PM MDT</li><li>Seattle Mariners (14.84 mi) - September 19, 2026 at 06:10 PM MDT</li><li>Seattle Sounders FC (15.71 mi) - September 19, 2026 at 07:30 PM MDT</li><li>Seattle Mariners (14.84 mi) - September 20, 2026 at 01:10 PM MDT</li></ul></div>`)[0];
+                popup_b31d0f75f5b1bcde44076df2c920efd4.setContent(html_705e595d20040459494a9ea90580f8a9);
             
         
 
-        marker_2766d777ac59d3f486354dcdfd7c08ac.bindPopup(popup_e7cedd8be414d83e3c894e96c3f20a40)
+        marker_ebbb0af7419a3983faa2bbdb9adeeafe.bindPopup(popup_b31d0f75f5b1bcde44076df2c920efd4)
         ;
 
         
     
     
-                marker_2766d777ac59d3f486354dcdfd7c08ac.setIcon(icon_e0bb76c0fbcea50c6c9a0b510982f415);
+                marker_ebbb0af7419a3983faa2bbdb9adeeafe.setIcon(icon_3ec96ee47bfdcf809a8d77cf625f6782);
             
     
-            var marker_cd7fac936efd070cc18bdb18b87a464b = L.marker(
+            var marker_7df5642147e48bb64a437a7cd852e55f = L.marker(
                 [39.805, -104.891],
                 {
 }
-            ).addTo(map_ccaca94a7bb92e33a94a9d62288ee5e9);
+            ).addTo(map_c159b52a9159e6bf9b5f2e32eca72a2d);
         
     
-            var icon_217d7bd9b1983fe91de1e5318bdb702e = L.AwesomeMarkers.icon(
+            var icon_43d6db5eb00c46a6b99ba4e78e43d783 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -459,27 +460,27 @@
             );
         
     
-        var popup_f0214997b1c48a012670e17b7af82354 = L.popup({
+        var popup_126344e6bc8969aecdcbb5ad4906143e = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_01a0913699ebdef936803861f2861161 = $(`<div id="html_01a0913699ebdef936803861f2861161" style="width: 100.0%; height: 100.0%;"><b>Seattle Sounders FC @ Colorado Rapids</b><br><i>MLS - DICK'S Sporting Goods Park</i><br>September 19, 2026 at 07:30 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (6.47 mi) - September 18, 2026 at 06:10 PM MDT</li><li>Seattle Mariners (6.47 mi) - September 19, 2026 at 06:10 PM MDT</li><li>Seattle Reign (15.71 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Mariners (6.47 mi) - September 20, 2026 at 01:10 PM MDT</li></ul></div>`)[0];
-                popup_f0214997b1c48a012670e17b7af82354.setContent(html_01a0913699ebdef936803861f2861161);
+                var html_6f7fed1101de5cbecc800aeb82c1b870 = $(`<div id="html_6f7fed1101de5cbecc800aeb82c1b870" style="width: 100.0%; height: 100.0%;"><b>Seattle Sounders FC @ Colorado Rapids</b><br><i>MLS - DICK'S Sporting Goods Park</i><br>September 19, 2026 at 07:30 PM MDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (6.47 mi) - September 18, 2026 at 06:10 PM MDT</li><li>Seattle Mariners (6.47 mi) - September 19, 2026 at 06:10 PM MDT</li><li>Seattle Reign (15.71 mi) - September 19, 2026 at 06:45 PM MDT</li><li>Seattle Mariners (6.47 mi) - September 20, 2026 at 01:10 PM MDT</li></ul></div>`)[0];
+                popup_126344e6bc8969aecdcbb5ad4906143e.setContent(html_6f7fed1101de5cbecc800aeb82c1b870);
             
         
 
-        marker_cd7fac936efd070cc18bdb18b87a464b.bindPopup(popup_f0214997b1c48a012670e17b7af82354)
+        marker_7df5642147e48bb64a437a7cd852e55f.bindPopup(popup_126344e6bc8969aecdcbb5ad4906143e)
         ;
 
         
     
     
-                marker_cd7fac936efd070cc18bdb18b87a464b.setIcon(icon_217d7bd9b1983fe91de1e5318bdb702e);
+                marker_7df5642147e48bb64a437a7cd852e55f.setIcon(icon_43d6db5eb00c46a6b99ba4e78e43d783);
             
     
-            map_ccaca94a7bb92e33a94a9d62288ee5e9.fitBounds(
+            map_c159b52a9159e6bf9b5f2e32eca72a2d.fitBounds(
                 [[32.707, -118.284], [39.805, -104.827]],
                 {}
             );

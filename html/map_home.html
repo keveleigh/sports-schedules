@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_64b18f6ad3ddb52eb4d6b72ac12e4558 {
+                #map_c2ecd059af0456fb617427f9c11ebb95 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,15 +54,15 @@
 <body>
     
     
-            <div class="folium-map" id="map_64b18f6ad3ddb52eb4d6b72ac12e4558" ></div>
+            <div class="folium-map" id="map_c2ecd059af0456fb617427f9c11ebb95" ></div>
         
     
     <div style="
         position: fixed; 
         bottom: 50px; 
         left: 50px; 
-        width: 140px; 
-        height: 125px; 
+        width: auto; 
+        height: auto; 
         background-color: white; 
         border: 2px solid grey; 
         z-index: 9999; 
@@ -70,10 +70,11 @@
         padding: 10px;
         ">
         <b>Team Legend</b><br>
-        <span style="color: orange;">&#9608;</span> SF Giants<br>
-        <span style="color: cadetblue;">&#9608;</span> Mariners<br>
-        <span style="color: green;">&#9608;</span> Sounders<br>
-        <span style="color: darkblue;">&#9608;</span> Reign
+        <span style="color: orange;">&#9608;</span> San Francisco Giants<br>
+        <span style="color: cadetblue;">&#9608;</span> Seattle Mariners<br>
+        <span style="color: green;">&#9608;</span> Seattle Sounders FC<br>
+        <span style="color: darkblue;">&#9608;</span> Seattle Reign<br>
+        <span style="color: red;">&#9608;</span> Atlanta United<br>
     </div>
     
     
@@ -99,8 +100,8 @@
 <script>
     
     
-            var map_64b18f6ad3ddb52eb4d6b72ac12e4558 = L.map(
-                "map_64b18f6ad3ddb52eb4d6b72ac12e4558",
+            var map_c2ecd059af0456fb617427f9c11ebb95 = L.map(
+                "map_c2ecd059af0456fb617427f9c11ebb95",
                 {
                     center: [39.8283, -98.5795],
                     crs: L.CRS.EPSG3857,
@@ -117,7 +118,7 @@
 
         
     
-            var tile_layer_2f662b7633ed5fa6cf559d28c6360e17 = L.tileLayer(
+            var tile_layer_2f2358fe66c2aeb4a47b4951cadb59ff = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -134,17 +135,17 @@
             );
         
     
-            tile_layer_2f662b7633ed5fa6cf559d28c6360e17.addTo(map_64b18f6ad3ddb52eb4d6b72ac12e4558);
+            tile_layer_2f2358fe66c2aeb4a47b4951cadb59ff.addTo(map_c2ecd059af0456fb617427f9c11ebb95);
         
     
-            var marker_c0a959629381366fa5c5fc0a502ec6be = L.marker(
+            var marker_4d35ca34d533cb6c5c8f87a841d967a2 = L.marker(
                 [47.591, -122.332],
                 {
 }
-            ).addTo(map_64b18f6ad3ddb52eb4d6b72ac12e4558);
+            ).addTo(map_c2ecd059af0456fb617427f9c11ebb95);
         
     
-            var icon_f38fa0e9088bc777df35e9fb8eac58ff = L.AwesomeMarkers.icon(
+            var icon_9ff280bb4987f4f377a99ecb26e2676b = L.AwesomeMarkers.icon(
                 {
   "markerColor": "cadetblue",
   "iconColor": "white",
@@ -155,34 +156,34 @@
             );
         
     
-        var popup_40c89dd0797d1d976c2486fb860be64e = L.popup({
+        var popup_125ced8ed729da3fd40b694a17e9cabb = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_3f664cf6aa2b08db011dfdd71d30a105 = $(`<div id="html_3f664cf6aa2b08db011dfdd71d30a105" style="width: 100.0%; height: 100.0%;"><b>Texas Rangers @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>April 18, 2026 at 04:15 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - April 18, 2026 at 06:30 PM PDT</li></ul><hr><b>San Diego Padres @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>May 16, 2026 at 04:15 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - May 16, 2026 at 06:00 PM PDT</li></ul><hr><b>Athletics @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 05, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 05, 2026 at 05:30 PM PDT</li></ul><hr><b>Houston Astros @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 23, 2026 at 07:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 23, 2026 at 06:30 PM PDT</li></ul><hr><b>Los Angeles Angels @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 26, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 26, 2026 at 05:30 PM PDT</li></ul></div>`)[0];
-                popup_40c89dd0797d1d976c2486fb860be64e.setContent(html_3f664cf6aa2b08db011dfdd71d30a105);
+                var html_c7ed6a651ed96008fe679bfe4031bac5 = $(`<div id="html_c7ed6a651ed96008fe679bfe4031bac5" style="width: 100.0%; height: 100.0%;"><b>Texas Rangers @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>April 18, 2026 at 04:15 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - April 18, 2026 at 06:30 PM PDT</li></ul><hr><b>San Diego Padres @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>May 16, 2026 at 04:15 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - May 16, 2026 at 06:00 PM PDT</li></ul><hr><b>Athletics @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 05, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 05, 2026 at 05:30 PM PDT</li></ul><hr><b>Houston Astros @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 23, 2026 at 07:10 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 23, 2026 at 06:30 PM PDT</li></ul><hr><b>Los Angeles Angels @ Seattle Mariners</b><br><i>MLB - T-Mobile Park</i><br>September 26, 2026 at 06:40 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Sounders FC (0.28 mi) - September 26, 2026 at 05:30 PM PDT</li></ul></div>`)[0];
+                popup_125ced8ed729da3fd40b694a17e9cabb.setContent(html_c7ed6a651ed96008fe679bfe4031bac5);
             
         
 
-        marker_c0a959629381366fa5c5fc0a502ec6be.bindPopup(popup_40c89dd0797d1d976c2486fb860be64e)
+        marker_4d35ca34d533cb6c5c8f87a841d967a2.bindPopup(popup_125ced8ed729da3fd40b694a17e9cabb)
         ;
 
         
     
     
-                marker_c0a959629381366fa5c5fc0a502ec6be.setIcon(icon_f38fa0e9088bc777df35e9fb8eac58ff);
+                marker_4d35ca34d533cb6c5c8f87a841d967a2.setIcon(icon_9ff280bb4987f4f377a99ecb26e2676b);
             
     
-            var marker_956a28eac5974b114a74665cd0959154 = L.marker(
+            var marker_68099ffa6d1f64427639df5f5dea3c30 = L.marker(
                 [47.595, -122.331],
                 {
 }
-            ).addTo(map_64b18f6ad3ddb52eb4d6b72ac12e4558);
+            ).addTo(map_c2ecd059af0456fb617427f9c11ebb95);
         
     
-            var icon_b7f6fde1f8ab57d91f94db7b6bdadb65 = L.AwesomeMarkers.icon(
+            var icon_61fdf3857f81c48cc723a39311ce76ec = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -193,27 +194,27 @@
             );
         
     
-        var popup_7680a13b11245d56cbebe6f6471761d5 = L.popup({
+        var popup_efbcdbee1c9e1f7cd80616d04b27d0e0 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_bac89a83d1db33a1ae8d5801029dd49f = $(`<div id="html_bac89a83d1db33a1ae8d5801029dd49f" style="width: 100.0%; height: 100.0%;"><b>St. Louis CITY SC @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>April 18, 2026 at 06:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - April 18, 2026 at 04:15 PM PDT</li></ul><hr><b>LA Galaxy @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>May 16, 2026 at 06:00 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - May 16, 2026 at 04:15 PM PDT</li></ul><hr><b>Red Bull New York @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 05, 2026 at 05:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 05, 2026 at 06:40 PM PDT</li></ul><hr><b>Real Salt Lake @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 23, 2026 at 06:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 23, 2026 at 07:10 PM PDT</li></ul><hr><b>Minnesota United FC @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 26, 2026 at 05:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 26, 2026 at 06:40 PM PDT</li></ul></div>`)[0];
-                popup_7680a13b11245d56cbebe6f6471761d5.setContent(html_bac89a83d1db33a1ae8d5801029dd49f);
+                var html_35f2132b24e2df7765dfb29214072665 = $(`<div id="html_35f2132b24e2df7765dfb29214072665" style="width: 100.0%; height: 100.0%;"><b>St. Louis CITY SC @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>April 18, 2026 at 06:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - April 18, 2026 at 04:15 PM PDT</li></ul><hr><b>LA Galaxy @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>May 16, 2026 at 06:00 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - May 16, 2026 at 04:15 PM PDT</li></ul><hr><b>Red Bull New York @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 05, 2026 at 05:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 05, 2026 at 06:40 PM PDT</li></ul><hr><b>Real Salt Lake @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 23, 2026 at 06:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 23, 2026 at 07:10 PM PDT</li></ul><hr><b>Minnesota United FC @ Seattle Sounders FC</b><br><i>MLS - Lumen Field</i><br>September 26, 2026 at 05:30 PM PDT<br><b>Nearby Games:</b><ul><li>Seattle Mariners (0.28 mi) - September 26, 2026 at 06:40 PM PDT</li></ul></div>`)[0];
+                popup_efbcdbee1c9e1f7cd80616d04b27d0e0.setContent(html_35f2132b24e2df7765dfb29214072665);
             
         
 
-        marker_956a28eac5974b114a74665cd0959154.bindPopup(popup_7680a13b11245d56cbebe6f6471761d5)
+        marker_68099ffa6d1f64427639df5f5dea3c30.bindPopup(popup_efbcdbee1c9e1f7cd80616d04b27d0e0)
         ;
 
         
     
     
-                marker_956a28eac5974b114a74665cd0959154.setIcon(icon_b7f6fde1f8ab57d91f94db7b6bdadb65);
+                marker_68099ffa6d1f64427639df5f5dea3c30.setIcon(icon_61fdf3857f81c48cc723a39311ce76ec);
             
     
-            map_64b18f6ad3ddb52eb4d6b72ac12e4558.fitBounds(
+            map_c2ecd059af0456fb617427f9c11ebb95.fitBounds(
                 [[47.591, -122.332], [47.595, -122.331]],
                 {}
             );
