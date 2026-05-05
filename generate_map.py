@@ -1,11 +1,6 @@
 import argparse
 import json
-from collections import defaultdict
 from pathlib import Path
-
-import dateutil.parser
-import folium
-from branca.element import MacroElement, Template
 
 
 with open('config.json', 'r') as f:
@@ -33,144 +28,287 @@ def create_map(home_mode=False):
         print("No games to map!")
         return
 
-    # Create a base map centered roughly on the US
-    m = folium.Map(location=[39.8283, -98.5795], zoom_start=4)
-
-    # Define custom styles for each team
     team_styles = config.get("team_styles", {})
     league_styles = config.get("league_styles", {})
+    team_logos = {team: style.get("logo", "") for team, style in team_styles.items()}
 
-    # Create a FeatureGroup for each league to allow toggling
-    league_groups = {league: folium.FeatureGroup(
-        name=league, show=True) for league in league_styles.keys()}
-    for group in league_groups.values():
-        group.add_to(m)
-
-    # Group games by their exact coordinates
-    grouped_games = defaultdict(list)
+    unique_teams = set()
     for game in games:
-        grouped_games[(game['Lat'], game['Lon'])].append(game)
+        unique_teams.add(game.get('AwayTeam'))
+        unique_teams.add(game.get('HomeTeam'))
 
-    for (lat, lon), location_games in grouped_games.items():
-        popup_html = ""
+    default_teams = ["Seattle Mariners", "Seattle Sounders FC"] if home_mode else [
+        "San Francisco Giants", "Seattle Mariners", "Seattle Sounders FC", "Seattle Reign"
+    ]
 
-        for i, game in enumerate(location_games):
-            # Get the pre-calculated local date string
-            date_str = game.get('DateLocal')
-            if not date_str:
-                date_str = dateutil.parser.parse(
-                    game['DateUtc']).strftime("%B %d, %Y at %I:%M %p UTC")
-
-            # Build the HTML popup content
-            popup_html += f"<b>{game['AwayTeam']} @ {game['HomeTeam']}</b><br>"
-            popup_html += f"<i>{game['League']} - {game['Location']}</i><br>"
-            popup_html += f"{date_str}"
-
-            if game.get('NearbyGames'):
-                popup_html += "<br><b>Nearby Games:</b><ul>"
-                for nearby in game['NearbyGames']:
-                    nearby_date = nearby.get('DateLocal', 'Unknown Time')
-                    display_team = nearby.get(
-                        'TargetTeam', nearby.get('AwayTeam'))
-                    popup_html += f"<li>{display_team} ({nearby['DistanceMiles']} mi) - {nearby_date}</li>"
-                popup_html += "</ul>"
-
-            # Add a separator line between multiple games at the same location
-            if i < len(location_games) - 1:
-                popup_html += "<hr>"
-
-        # Add a single marker for this location to the map
-        team = location_games[0].get('AwayTeam')
-        if team not in team_styles and location_games[0].get('HomeTeam') in team_styles:
-            team = location_games[0].get('HomeTeam')
-        league = location_games[0].get('League', 'Unknown')
-
-        fallback_style = league_styles.get(
-            league, {"color": "gray", "icon": "info-sign", "prefix": "glyphicon"})
-        style = team_styles.get(team, fallback_style)
-
-        marker = folium.Marker(
-            location=[lat, lon],
-            popup=folium.Popup(popup_html, max_width=300),
-            icon=folium.Icon(
-                color=style["color"],
-                icon=style["icon"],
-                prefix=style["prefix"]
-            )
-        ).add_to(m)
-
-        # Assign the marker to the league's toggle group
-        target_group = league_groups.get(league)
-        if target_group is not None:
-            marker.add_to(target_group)
-        else:
-            marker.add_to(m)
-
-    # Automatically adjust map zoom and center to fit all markers
-    if grouped_games:
-        lats, lons = zip(*grouped_games.keys())
-        m.fit_bounds([[min(lats), min(lons)], [max(lats), max(lons)]])
-
-    folium.LayerControl(collapsed=False).add_to(m)
-
-    legend_items = ""
-    for team, style in team_styles.items():
-        legend_items += f'<span style="color: {style["color"]};">&#9608;</span> {team}<br>\n        '
-    legend_items += "<hr style='margin: 5px 0;'>"
-    for league, style in league_styles.items():
-        legend_items += f'<span style="color: {style["color"]};">&#9608;</span> {league} (Other)<br>\n        '
-
-    # Add a custom legend
-    legend_html = f'''
-    {{% macro html(this, kwargs) %}}
-    <div style="
-        position: fixed; 
-        bottom: 50px; 
-        left: 50px; 
-        width: auto; 
-        height: auto; 
-        background-color: white; 
-        border: 2px solid grey; 
-        z-index: 9999; 
-        font-size: 14px;
-        padding: 10px;
-        ">
-        <b>Team Legend</b><br>
-        {legend_items.strip()}
+    select_options = "".join(
+        [f'<option value="{t}"{" selected" if t in default_teams else ""}>{t}</option>' for t in sorted(list(unique_teams))])
+    dropdown_html = f"""
+    <div class='mb-4' style='max-width: 600px; margin: 0 auto;'>
+        <label for="team-filter" class="form-label fw-bold">Select Teams to Compare:</label>
+        <select id="team-filter" multiple>
+            {select_options}
+        </select>
+        <small class="text-muted d-block mt-2">Select at least two teams to map overlapping trips between them.</small>
     </div>
-    {{% endmacro %}}
-    '''
-    legend = MacroElement()
-    legend._template = Template(legend_html)
-    m.get_root().add_child(legend)
+    """
 
-    # Add a custom back button
-    back_button_html = '''
-    {% macro html(this, kwargs) %}
-    <div style="
-        position: fixed; 
-        top: 20px; 
-        left: 60px; 
-        z-index: 9999;
-        ">
-        <a href="../index.html" style="
-            background-color: white;
-            color: black;
-            padding: 8px 15px;
-            border: 2px solid grey;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            ">&larr; Back to Menu</a>
+    global_js = f"""
+      const allGames = {json.dumps(games)};
+      const homeMode = {'true' if home_mode else 'false'};
+      const teamStyles = {json.dumps(team_styles)};
+      const leagueStyles = {json.dumps(league_styles)};
+      const teamLogos = {json.dumps(team_logos)};
+
+      var map;
+      var markersLayer;
+
+      function calculateDistance(lat1, lon1, lat2, lon2) {{
+          if (lat1 === 0 && lon1 === 0) return Infinity;
+          if (lat2 === 0 && lon2 === 0) return Infinity;
+          const R = 3958.8;
+          const dLat = (lat2 - lat1) * Math.PI / 180;
+          const dLon = (lon2 - lon1) * Math.PI / 180;
+          const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          return R * c;
+      }}
+
+      function buildTrips(selectedTeams) {{
+          if (selectedTeams.length < 2) return [];
+
+          let activeGames = allGames.filter(g => {{
+              if (homeMode) {{
+                  return selectedTeams.includes(g.HomeTeam);
+              }} else {{
+                  return selectedTeams.includes(g.AwayTeam);
+              }}
+          }});
+
+          let edges = [];
+          for (let i = 0; i < activeGames.length; i++) {{
+              for (let j = i + 1; j < activeGames.length; j++) {{
+                  let g1 = activeGames[i];
+                  let g2 = activeGames[j];
+
+                  let d1 = new Date(g1.DateUtc);
+                  let d2 = new Date(g2.DateUtc);
+                  let diffDays = Math.floor(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24));
+
+                  if (g1.HomeTeam === g2.HomeTeam && g1.AwayTeam === g2.AwayTeam && g1.League === g2.League) {{
+                      if (!homeMode && diffDays <= 3) {{
+                          edges.push({{u: i, v: j, cross: false}});
+                      }}
+                      continue;
+                  }}
+
+                  if (g1.League === g2.League) continue;
+
+                  let timeValid = false;
+                  if (homeMode) {{
+                      let localDay1 = g1.DateLocal ? g1.DateLocal.split(' at ')[0] : g1.DateUtc;
+                      let localDay2 = g2.DateLocal ? g2.DateLocal.split(' at ')[0] : g2.DateUtc;
+                      timeValid = (localDay1 === localDay2);
+                  }} else {{
+                      timeValid = (diffDays <= 4);
+                  }}
+
+                  if (!timeValid) continue;
+
+                  let dist = calculateDistance(g1.Lat, g1.Lon, g2.Lat, g2.Lon);
+                  if (dist <= 50) {{
+                      edges.push({{u: i, v: j, cross: true}});
+                  }}
+              }}
+          }}
+
+          let parent = Array.from({{length: activeGames.length}}, (_, i) => i);
+          function find(i) {{
+              if (parent[i] === i) return i;
+              return parent[i] = find(parent[i]);
+          }}
+          function union(i, j) {{
+              let rootI = find(i);
+              let rootJ = find(j);
+              if (rootI !== rootJ) parent[rootI] = rootJ;
+          }}
+
+          edges.forEach(e => union(e.u, e.v));
+
+          let validRoots = new Set();
+          edges.forEach(e => {{
+              if (e.cross) validRoots.add(find(e.u));
+          }});
+
+          let tripsDict = {{}};
+          for (let i = 0; i < activeGames.length; i++) {{
+              let r = find(i);
+              if (validRoots.has(r)) {{
+                  if (!tripsDict[r]) tripsDict[r] = [];
+                  tripsDict[r].push(activeGames[i]);
+              }}
+          }}
+
+          let trips = Object.values(tripsDict);
+          trips.sort((a, b) => new Date(a[0].DateUtc) - new Date(b[0].DateUtc));
+          return trips;
+      }}
+
+      function renderMap(selectedTeams) {{
+          markersLayer.clearLayers();
+
+          if (selectedTeams.length < 2) {{
+              map.setView([39.8283, -98.5795], 4);
+              return;
+          }}
+
+          let trips = buildTrips(selectedTeams);
+
+          if (trips.length === 0) {{
+              map.setView([39.8283, -98.5795], 4);
+              return;
+          }}
+
+          // Group games by exact coordinates
+          let locationGroups = {{}};
+          trips.forEach(trip => {{
+              trip.forEach(game => {{
+                  let key = game.Lat + "," + game.Lon;
+                  if (!locationGroups[key]) {{
+                      locationGroups[key] = {{ lat: game.Lat, lon: game.Lon, games: [] }};
+                  }}
+                  // Ensure unique games per location
+                  let existing = locationGroups[key].games.find(g => g.MatchNumber === game.MatchNumber && g.League === game.League);
+                  if (!existing) {{
+                      locationGroups[key].games.push(game);
+                  }}
+              }});
+          }});
+
+          let bounds = [];
+
+          for (let key in locationGroups) {{
+              let loc = locationGroups[key];
+              
+              loc.games.sort((a, b) => new Date(a.DateUtc) - new Date(b.DateUtc));
+              let popupHtml = "";
+
+              loc.games.forEach((game, i) => {{
+                  let dateStr = game.DateLocal || (game.DateUtc + " UTC");
+                  let team = homeMode ? game.HomeTeam : game.AwayTeam;
+                  let logo = teamLogos[team] || "";
+
+                  let logoHtml = '';
+                  if (logo) {{
+                      logoHtml = `<img src="${{logo}}" style="width: 35px; height: 35px; object-fit: contain; margin-right: 15px;">`;
+                  }} else {{
+                      let initialAvatar = `https://ui-avatars.com/api/?name=${{encodeURIComponent(team)}}&background=e9ecef&color=495057&bold=true`;
+                      logoHtml = `<img src="${{initialAvatar}}" style="width: 35px; height: 35px; border-radius: 50%; object-fit: contain; margin-right: 15px;">`;
+                  }}
+
+                  popupHtml += `
+                    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                        ${{logoHtml}}
+                        <div>
+                            <b>${{game.AwayTeam}} @ ${{game.HomeTeam}}</b><br>
+                            <i>${{game.League}} - ${{game.Location}}</i><br>
+                            ${{dateStr}}
+                        </div>
+                    </div>`;
+
+                  if (i < loc.games.length - 1) {{
+                      popupHtml += "<hr style='margin: 10px 0;'>";
+                  }}
+              }});
+
+              let firstGame = loc.games[0];
+              let team = homeMode ? firstGame.HomeTeam : firstGame.AwayTeam;
+              let fallbackStyle = leagueStyles[firstGame.League] || {{color: "gray", icon: "info-sign", prefix: "glyphicon"}};
+              let style = teamStyles[team] || fallbackStyle;
+              
+              let markerColor = style.color;
+              if (!['red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpurple', 'cadetblue', 'star', 'lightred', 'beige', 'darkblue', 'darkgray', 'lightgreen', 'lightgray', 'pink', 'white', 'black'].includes(markerColor)) {{
+                  markerColor = 'blue';
+              }}
+              
+              let icon = L.AwesomeMarkers.icon({{
+                  icon: style.icon,
+                  prefix: style.prefix,
+                  markerColor: markerColor
+              }});
+
+              let marker = L.marker([loc.lat, loc.lon], {{icon: icon}});
+              marker.bindPopup(popupHtml, {{maxWidth: 350}});
+              markersLayer.addLayer(marker);
+              bounds.push([loc.lat, loc.lon]);
+          }}
+
+          if (bounds.length > 0) {{
+              map.fitBounds(bounds, {{padding: [50, 50]}});
+          }}
+      }}
+
+      document.addEventListener('DOMContentLoaded', function() {{
+          map = L.map('map').setView([39.8283, -98.5795], 4);
+          L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+              attribution: '&copy; OpenStreetMap contributors'
+          }}).addTo(map);
+
+          markersLayer = L.featureGroup().addTo(map);
+
+          const filterEl = document.getElementById('team-filter');
+          const choices = new Choices(filterEl, {{
+              removeItemButton: true,
+              placeholderValue: 'Filter by teams...',
+              searchPlaceholderValue: 'Search teams'
+          }});
+          
+          filterEl.addEventListener('change', function() {{
+              var activeTeams = Array.from(filterEl.selectedOptions).map(opt => opt.value);
+              renderMap(activeTeams);
+          }});
+          
+          var initialTeams = Array.from(filterEl.selectedOptions).map(opt => opt.value);
+          renderMap(initialTeams);
+      }});
+    """
+
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>{global_js}</script>
+    <style>
+      body {{ margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }}
+      #map-container {{ max-width: 1000px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+      #map {{ width: 100%; height: 600px; border-radius: 6px; z-index: 1; }}
+    </style>
+</head>
+<body>
+    <div style="max-width: 1000px; margin: 0 auto; padding-top: 20px;">
+        <a href="../index.html" class="btn btn-outline-secondary">&larr; Back to Menu</a>
     </div>
-    {% endmacro %}
-    '''
-    back_button = MacroElement()
-    back_button._template = Template(back_button_html)
-    m.get_root().add_child(back_button)
-
-    m.save(output_file)
+    <h2 class="text-center mb-4">{'Home' if home_mode else 'Away'} Schedule Map</h2>
+    {dropdown_html}
+    <div id="map-container">
+        <div id='map'></div>
+    </div>
+</body>
+</html>
+"""
+    with open(output_file, 'w') as f:
+        f.write(html_content)
     print(f"Map successfully generated and saved to {output_file}!")
 
 
