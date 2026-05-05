@@ -6,27 +6,77 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+        var calendarEl_0 = document.getElementById('calendar_0');
+        var calendar_0 = new FullCalendar.Calendar(calendarEl_0, {
           initialView: 'listYear',
-          events: [{"title": "Texas Rangers @ Seattle Mariners", "start": "2026-04-18T23:15:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "St. Louis CITY SC @ Seattle Sounders FC", "start": "2026-04-19T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "San Diego Padres @ Seattle Mariners", "start": "2026-05-16T23:15:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "LA Galaxy @ Seattle Sounders FC", "start": "2026-05-17T01:00:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Red Bull New York @ Seattle Sounders FC", "start": "2026-09-06T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Athletics @ Seattle Mariners", "start": "2026-09-06T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "Real Salt Lake @ Seattle Sounders FC", "start": "2026-09-24T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Houston Astros @ Seattle Mariners", "start": "2026-09-24T02:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "Minnesota United FC @ Seattle Sounders FC", "start": "2026-09-27T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Los Angeles Angels @ Seattle Mariners", "start": "2026-09-27T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
+          height: 'auto',
+          events: [{"title": "Texas Rangers @ Seattle Mariners", "start": "2026-04-18T23:15:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "St. Louis CITY SC @ Seattle Sounders FC", "start": "2026-04-19T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}],
           eventContent: function(arg) {
             let html = '<b>' + arg.event.title + '</b><br>';
             html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
             return { html: html };
           }
         });
-        calendar.render();
+        calendar_0.render();
+        
+        var calendarEl_1 = document.getElementById('calendar_1');
+        var calendar_1 = new FullCalendar.Calendar(calendarEl_1, {
+          initialView: 'listYear',
+          height: 'auto',
+          events: [{"title": "San Diego Padres @ Seattle Mariners", "start": "2026-05-16T23:15:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "LA Galaxy @ Seattle Sounders FC", "start": "2026-05-17T01:00:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}],
+          eventContent: function(arg) {
+            let html = '<b>' + arg.event.title + '</b><br>';
+            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
+            return { html: html };
+          }
+        });
+        calendar_1.render();
+        
+        var calendarEl_2 = document.getElementById('calendar_2');
+        var calendar_2 = new FullCalendar.Calendar(calendarEl_2, {
+          initialView: 'listYear',
+          height: 'auto',
+          events: [{"title": "Red Bull New York @ Seattle Sounders FC", "start": "2026-09-06T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Athletics @ Seattle Mariners", "start": "2026-09-06T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
+          eventContent: function(arg) {
+            let html = '<b>' + arg.event.title + '</b><br>';
+            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
+            return { html: html };
+          }
+        });
+        calendar_2.render();
+        
+        var calendarEl_3 = document.getElementById('calendar_3');
+        var calendar_3 = new FullCalendar.Calendar(calendarEl_3, {
+          initialView: 'listYear',
+          height: 'auto',
+          events: [{"title": "Real Salt Lake @ Seattle Sounders FC", "start": "2026-09-24T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Houston Astros @ Seattle Mariners", "start": "2026-09-24T02:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "Minnesota United FC @ Seattle Sounders FC", "start": "2026-09-27T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Los Angeles Angels @ Seattle Mariners", "start": "2026-09-27T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
+          eventContent: function(arg) {
+            let html = '<b>' + arg.event.title + '</b><br>';
+            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
+            return { html: html };
+          }
+        });
+        calendar_3.render();
+        
       });
     </script>
     <style>
       body { margin: 40px 10px; padding: 0; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px; background-color: #f8f9fa; }
-      #calendar { max-width: 900px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+      .calendar-container { max-width: 900px; margin: 0 auto 40px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
       .fc-list-event-title { white-space: normal !important; }
     </style>
 </head>
 <body>
     <h2 class="text-center mb-4">Home Schedule Overlaps</h2>
-    <div id='calendar'></div>
+    <h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Apr 18)</h3>
+<div id='calendar_0' class='calendar-container'></div>
+<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (May 16)</h3>
+<div id='calendar_1' class='calendar-container'></div>
+<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 05)</h3>
+<div id='calendar_2' class='calendar-container'></div>
+<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 23 - Sep 26)</h3>
+<div id='calendar_3' class='calendar-container'></div>
+
 </body>
 </html>
