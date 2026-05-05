@@ -50,7 +50,7 @@
         var calendar_3 = new FullCalendar.Calendar(calendarEl_3, {
           initialView: 'listYear',
           height: 'auto',
-          events: [{"title": "Real Salt Lake @ Seattle Sounders FC", "start": "2026-09-24T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Houston Astros @ Seattle Mariners", "start": "2026-09-24T02:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}, {"title": "Minnesota United FC @ Seattle Sounders FC", "start": "2026-09-27T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Los Angeles Angels @ Seattle Mariners", "start": "2026-09-27T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
+          events: [{"title": "Real Salt Lake @ Seattle Sounders FC", "start": "2026-09-24T01:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Houston Astros @ Seattle Mariners", "start": "2026-09-24T02:10:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
           eventContent: function(arg) {
             let html = '<b>' + arg.event.title + '</b><br>';
             html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
@@ -58,6 +58,19 @@
           }
         });
         calendar_3.render();
+        
+        var calendarEl_4 = document.getElementById('calendar_4');
+        var calendar_4 = new FullCalendar.Calendar(calendarEl_4, {
+          initialView: 'listYear',
+          height: 'auto',
+          events: [{"title": "Minnesota United FC @ Seattle Sounders FC", "start": "2026-09-27T00:30:00+00:00", "color": "green", "extendedProps": {"location": "Lumen Field", "league": "MLS"}}, {"title": "Los Angeles Angels @ Seattle Mariners", "start": "2026-09-27T01:40:00+00:00", "color": "cadetblue", "extendedProps": {"location": "T-Mobile Park", "league": "MLB"}}],
+          eventContent: function(arg) {
+            let html = '<b>' + arg.event.title + '</b><br>';
+            html += '<i>' + arg.event.extendedProps.league + ' - ' + arg.event.extendedProps.location + '</i><br>';
+            return { html: html };
+          }
+        });
+        calendar_4.render();
         
       });
     </script>
@@ -78,8 +91,10 @@
 <div id='calendar_1' class='calendar-container'></div>
 <h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 05)</h3>
 <div id='calendar_2' class='calendar-container'></div>
-<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 23 - Sep 26)</h3>
+<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 23)</h3>
 <div id='calendar_3' class='calendar-container'></div>
+<h3 class='mt-5 mb-3 text-center' style='color: #495057;'>Homestand: Seattle (Sep 26)</h3>
+<div id='calendar_4' class='calendar-container'></div>
 
 </body>
 </html>

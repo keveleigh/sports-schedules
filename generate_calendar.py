@@ -55,10 +55,13 @@ def create_calendar(home_mode=False):
 
     for i in range(n):
         dt_i = dateutil.parser.parse(games[i]['DateUtc'])
+        day_i = games[i].get('DateLocal', '').split(' at ')[0]
         for j in range(i + 1, n):
             dt_j = dateutil.parser.parse(games[j]['DateUtc'])
             if (dt_j - dt_i).days > 4:
                 break
+
+            day_j = games[j].get('DateLocal', '').split(' at ')[0]
 
             lat1 = games[i].get('Lat', 0.0)
             lon1 = games[i].get('Lon', 0.0)
@@ -67,7 +70,11 @@ def create_calendar(home_mode=False):
 
             dist = schedules.calculate_distance(lat1, lon1, lat2, lon2)
             if dist <= 50.0:
-                union(i, j)
+                if home_mode:
+                    if day_i == day_j:
+                        union(i, j)
+                else:
+                    union(i, j)
 
     trips_dict = defaultdict(list)
     for i in range(n):
